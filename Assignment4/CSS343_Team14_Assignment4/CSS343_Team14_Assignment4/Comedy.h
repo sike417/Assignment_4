@@ -5,8 +5,10 @@ class Comedy :
 {
     friend class Commands;
 public:
-	bool operator<(const Comedy &obj);
-	bool operator>(const Comedy &obj);
+    using Movies::operator<;
+    using Movies::operator>;
+    using Movies::operator==;
+
     Comedy();
     ~Comedy();
 

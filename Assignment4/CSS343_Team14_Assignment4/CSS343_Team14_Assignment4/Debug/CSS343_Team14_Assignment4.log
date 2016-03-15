@@ -1,9 +1,15 @@
-﻿  Classics.cpp
-  Generating Code...
-  Compiling...
-  Comedy.cpp
-  Generating Code...
-  Compiling...
+﻿  Store.cpp
+  Source.cpp
+  Movies.cpp
+  Inventory.cpp
+  History.cpp
+  Hashtable.cpp
   Drama.cpp
+  Customers.cpp
+  Commands.cpp
+  Comedy.cpp
+  Classics.cpp
   Generating Code...
-  CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe
+Store.obj : error LNK2019: unresolved external symbol "public: __thiscall Hashtable<class Customers>::Hashtable<class Customers>(void)" (??0?$Hashtable@VCustomers@@@@QAE@XZ) referenced in function "public: __thiscall Store::Store(void)" (??0Store@@QAE@XZ)
+Store.obj : error LNK2019: unresolved external symbol "public: __thiscall Hashtable<class Customers>::~Hashtable<class Customers>(void)" (??1?$Hashtable@VCustomers@@@@QAE@XZ) referenced in function "public: virtual __thiscall Store::~Store(void)" (??1Store@@UAE@XZ)
+C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe : fatal error LNK1120: 2 unresolved externals

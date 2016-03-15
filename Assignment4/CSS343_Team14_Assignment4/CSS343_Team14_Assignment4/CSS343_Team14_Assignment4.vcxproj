@@ -149,28 +149,25 @@
     <ClInclude Include="Classics.h" />
     <ClInclude Include="Comedy.h" />
     <ClInclude Include="Commands.h" />
-    <ClInclude Include="CustomerHash.h" />
     <ClInclude Include="Customers.h" />
     <ClInclude Include="Drama.h" />
     <ClInclude Include="Hashtable.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Movies.h" />
-    <ClInclude Include="People.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Store.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Classics.cpp" />
     <ClCompile Include="Comedy.cpp" />
     <ClCompile Include="Commands.cpp" />
-    <ClCompile Include="CustomerHash.cpp" />
     <ClCompile Include="Customers.cpp" />
     <ClCompile Include="Drama.cpp" />
     <ClCompile Include="Hashtable.cpp" />
     <ClCompile Include="History.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Movies.cpp" />
-    <ClCompile Include="People.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Store.cpp" />
   </ItemGroup>

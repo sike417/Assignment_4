@@ -1,12 +1,13 @@
 #include "Hashtable.h"
 
-
-
-Hashtable::Hashtable()
+template<typename object>
+Hashtable<object>::Hashtable()
 {
+
 }
 
-
-Hashtable::~Hashtable()
+template<class object>
+Hashtable<object>::~Hashtable()
 {
+
 }

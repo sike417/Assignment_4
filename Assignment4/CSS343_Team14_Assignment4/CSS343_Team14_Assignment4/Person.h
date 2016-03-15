@@ -4,19 +4,11 @@
 #pragma once
 #include <string>
 using namespace std;
-struct person
+
+struct Person
 {
     string firstName;
     string lastName;
-
-};
-
-class People
-{
-    friend class Commands;
-public:
-    People();
-    ~People();
 };
 
 #endif

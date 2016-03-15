@@ -7,8 +7,9 @@ class Drama :
 {
     friend class Commands;
 public:
-	bool operator<(const Drama &obj);
-	bool operator>(const Drama &obj);
+    using Movies::operator<;
+    using Movies::operator>;
+    using Movies::operator==;
     Drama();
     ~Drama();
 };

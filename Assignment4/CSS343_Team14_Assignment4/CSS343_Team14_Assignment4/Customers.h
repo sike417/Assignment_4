@@ -2,15 +2,15 @@
 #define CUSTOMERS_H
 
 #pragma once
-#include "People.h"
+#include "Person.h"
 
-class Customers: public People
+class Customers: public Person
 {
 public:
     Customers(int id);
     ~Customers();
 private:
-    person name;
+    Person name;
     int id;
 };
 

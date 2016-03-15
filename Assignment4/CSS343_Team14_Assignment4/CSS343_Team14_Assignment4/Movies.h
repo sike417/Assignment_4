@@ -1,10 +1,9 @@
 #ifndef MOVIES_H
 #define MOVIES_H
-#endif // !MOVIES_H
 
 #pragma once
 #include "Commands.h"
-#include "People.h"
+#include "Person.h"
 #include <string>
 using namespace std;
 
@@ -18,14 +17,19 @@ public:
     bool addStock();
     bool removeStock();
 
-    person getDirector();
+    Person getDirector();
     string getTitle();
     int getYearReleased();
+
+    bool operator<(const Movies &obj);
+    bool operator>(const Movies &obj);
+    bool operator==(const Movies &obj);
+
 private:
     string title;
     int initialStock;
     int currentStock;
-    person director;
+    Person director;
     int yearReleased;
 };
 
