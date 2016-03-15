@@ -1,3 +1,6 @@
+#ifndef HISTORY_H
+#define HISTORY_H
+
 #pragma once
 class History
 {
@@ -6,4 +9,6 @@ public:
     History();
     ~History();
 };
+
+#endif
 

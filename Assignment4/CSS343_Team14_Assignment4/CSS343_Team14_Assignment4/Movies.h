@@ -1,3 +1,7 @@
+#ifndef MOVIES_H
+#define MOVIES_H
+#endif // !MOVIES_H
+
 #pragma once
 #include "Commands.h"
 #include "People.h"
@@ -24,4 +28,6 @@ private:
     Director director;
     int yearReleased;
 };
+
+#endif
 
