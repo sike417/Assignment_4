@@ -7,8 +7,11 @@
 class Customers: public People
 {
 public:
-    Customers();
+    Customers(int id);
     ~Customers();
+private:
+    person name;
+    int id;
 };
 
 #endif

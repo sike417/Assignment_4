@@ -4,7 +4,7 @@
 #pragma once
 #include <string>
 using namespace std;
-struct Director
+struct person
 {
     string firstName;
     string lastName;
