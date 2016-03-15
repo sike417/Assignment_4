@@ -151,7 +151,7 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="Customers.h" />
     <ClInclude Include="Drama.h" />
-    <ClInclude Include="Hashtable.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="History.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Movies.h" />
@@ -164,7 +164,6 @@
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="Customers.cpp" />
     <ClCompile Include="Drama.cpp" />
-    <ClCompile Include="Hashtable.cpp" />
     <ClCompile Include="History.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Movies.cpp" />

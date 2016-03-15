@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Commands.h"
 #include "Inventory.h"
-#include "Hashtable.h"
+#include "HashTable.h"
 #include "Customers.h"
 
 using namespace std;
@@ -22,7 +22,7 @@ public:
 
 private:
     Inventory storeInventory;
-    Hashtable<Customers> customers;
+    HashTable<int, Customers> customers;
 };
 
 #endif

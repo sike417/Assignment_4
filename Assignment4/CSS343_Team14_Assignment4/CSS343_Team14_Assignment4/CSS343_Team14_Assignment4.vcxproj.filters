@@ -36,9 +36,6 @@
     <ClInclude Include="Customers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Hashtable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="History.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -46,6 +43,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Customers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hashtable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="History.cpp">
