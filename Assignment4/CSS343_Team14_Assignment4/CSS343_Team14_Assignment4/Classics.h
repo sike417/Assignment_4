@@ -7,5 +7,8 @@ class Classics :
 public:
     Classics();
     ~Classics();
+private:
+    person majorActor;
+    int month
 };
 

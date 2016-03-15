@@ -14,14 +14,14 @@ public:
     bool addStock();
     bool removeStock();
 
-    Director getDirector();
+    person getDirector();
     string getTitle();
     int getYearReleased();
 private:
     string title;
     int initialStock;
     int currentStock;
-    Director director;
+    person director;
     int yearReleased;
 };
 
