@@ -167,7 +167,7 @@
     <ClCompile Include="History.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Movies.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Store.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

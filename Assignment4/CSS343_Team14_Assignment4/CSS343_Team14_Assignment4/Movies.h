@@ -25,12 +25,20 @@ public:
     bool operator>(const Movies &obj);
     bool operator==(const Movies &obj);
 
-private:
+    void setTitle();
+    bool setStock();
+    int setDirector();
+    bool setReleaseYear();
+    bool setType(char type); // can only set once
+    //void setType();
+
+protected:
     string title;
     int initialStock;
     int currentStock;
     Person director;
     int yearReleased;
+    char type;
 };
 
 #endif
