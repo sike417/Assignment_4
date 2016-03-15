@@ -3,6 +3,7 @@
 class Drama :
     public Movies
 {
+    friend class Commands;
 public:
     Drama();
     ~Drama();
