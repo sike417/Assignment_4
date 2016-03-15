@@ -1,3 +1,6 @@
+#ifndef HISTORY_H
+#define HISTORY_H
+
 #pragma once
 #include <list>
 #include <iostream>
@@ -14,4 +17,6 @@ public:
 private:
     list<string> history;
 };
+
+#endif
 

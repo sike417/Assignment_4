@@ -1,3 +1,6 @@
+#ifndef STORE_H
+#define STORE_H
+
 #pragma once
 #include <fstream>
 #include <iostream>
@@ -23,3 +26,4 @@ private:
     CustomerHash customers;
 };
 
+#endif
