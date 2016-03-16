@@ -10,6 +10,16 @@ Customers::~Customers()
 {
 }
 
+bool Customers::operator==(const Customers & obj)
+{
+    return false;
+}
+
+bool Customers::operator!=(const Customers & obj)
+{
+    return false;
+}
+
 void Customers::setName(const string & first, const string & last)
 {
 	name.firstName = first;
