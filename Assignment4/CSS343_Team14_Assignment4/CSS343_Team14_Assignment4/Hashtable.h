@@ -12,7 +12,7 @@ public:
     HashTable();
     ~HashTable();
 
-    bool contains(const object &obj) const;
+    bool contains(const key &key) const;
     void empty();
     bool insert(const key &val, const object &obj) const;
     bool remove(const key &val);
