@@ -13,21 +13,23 @@ Movies::~Movies()
 
 void Movies::setTitle(const string & title)
 {
+    this->title = title;
 }
 
-bool Movies::setStock(const int & stock)
+void Movies::setStock(const int & stock)
 {
-    return false;
+    currentStock = stock;
 }
 
-bool Movies::setDirector(const Person & director)
+void Movies::setDirector(const Person & director)
 {
-    return false;
+    this->director = director;
 }
 
-bool Movies::setDirector(const string & first, const string & last)
+void Movies::setDirector(const string & first, const string & last)
 {
-    return false;
+    director.firstName = first;
+    director.lastName = last;
 }
 
 bool Movies::setReleaseYear(int & releaseYear)
@@ -35,7 +37,7 @@ bool Movies::setReleaseYear(int & releaseYear)
     return false;
 }
 
-bool Movies::setType(char type)
+void Movies::setType(char type)
 {
-    return false;
+    this->type = type;
 }

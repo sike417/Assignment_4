@@ -34,7 +34,6 @@ void Store::LoadMovieFromFile(ifstream & infile)
         if (data == "C")
         {
             Classics classic;
-            classic.setType(data[0]);
 
             infile >> data; //grab next section.
 
@@ -54,7 +53,7 @@ void Store::LoadMovieFromFile(ifstream & infile)
             data.pop_back(); //removes trailing whitespace.
             classic.setTitle(data);
 
-
+            cout << endl;
         }
         else if (data == "F")
         {
