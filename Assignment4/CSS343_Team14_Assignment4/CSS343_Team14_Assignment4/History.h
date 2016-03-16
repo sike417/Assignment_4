@@ -14,6 +14,7 @@ public:
     
     void addTransaction(string transaction);
     friend ostream& operator<<(ostream& output, const History &obj);
+
 private:
     list<string> history;
 };

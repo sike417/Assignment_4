@@ -6,8 +6,8 @@
 #include <iostream>
 #include "Commands.h"
 #include "Inventory.h"
-#include "CustomerHash.h"
-
+#include "HashTable.h"
+#include "Customers.h"
 using namespace std;
 
 class Store
@@ -19,11 +19,12 @@ public:
     Store(ifstream &movieList);
     virtual ~Store();
 
-
-
 private:
-    Inventory store_Inventory;
-    CustomerHash customers;
+    Inventory storeInventory;
+    HashTable<int, Customers> customers;
+    void LoadMovieFromFile(ifstream &infile);
+    void LoadCustomersFromFile(ifstream &infile);
+    void LoadTransactionsFromFile(ifstream &infile);
 };
 
 #endif

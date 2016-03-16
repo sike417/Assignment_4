@@ -1,10 +1,9 @@
 #ifndef MOVIES_H
 #define MOVIES_H
-#endif // !MOVIES_H
 
 #pragma once
 #include "Commands.h"
-#include "People.h"
+#include "Person.h"
 #include <string>
 using namespace std;
 
@@ -15,18 +14,31 @@ public:
     Movies();
     virtual ~Movies();
  
-    bool addStock();
-    bool removeStock();
+    bool addStock(const int& num);
+    bool removeStock(const int& num);
 
-    person getDirector();
+    Person getDirector();
     string getTitle();
     int getYearReleased();
-private:
+
+    bool operator<(const Movies &obj);
+    bool operator>(const Movies &obj);
+    bool operator==(const Movies &obj);
+
+    void setTitle(const string &title);
+    void setStock(const int &stock);
+    void setDirector(const Person &director);
+    void setDirector(const string &first, const string &last);
+    bool setReleaseYear(int &releaseYear);
+
+protected:
     string title;
     int initialStock;
     int currentStock;
-    person director;
+    Person director;
     int yearReleased;
+    char type;
+    void setType(char type); // can only set once
 };
 
 #endif
