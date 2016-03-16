@@ -14,14 +14,8 @@ public:
     Classics();
     ~Classics();
 private:
-<<<<<<< HEAD
     person majorActor;
-    int month
-=======
-	string majorActor;
-	int releaseDate;
-
->>>>>>> a0195c6e591225f9fd751ed97264f797fecf5a6d
+	int month;
 };
 
 #endif

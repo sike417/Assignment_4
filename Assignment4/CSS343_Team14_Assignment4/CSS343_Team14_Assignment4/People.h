@@ -8,7 +8,6 @@ struct person
 {
     string firstName;
     string lastName;
-
 };
 
 class People

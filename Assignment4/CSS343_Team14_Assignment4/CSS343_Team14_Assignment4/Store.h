@@ -7,7 +7,6 @@
 #include "Commands.h"
 #include "Inventory.h"
 #include "CustomerHash.h"
-
 using namespace std;
 
 class Store

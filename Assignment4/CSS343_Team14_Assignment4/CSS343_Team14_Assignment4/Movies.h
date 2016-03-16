@@ -1,7 +1,5 @@
 #ifndef MOVIES_H
 #define MOVIES_H
-#endif // !MOVIES_H
-
 #pragma once
 #include "Commands.h"
 #include "People.h"
@@ -15,8 +13,8 @@ public:
     Movies();
     virtual ~Movies();
  
-    bool addStock();
-    bool removeStock();
+    bool addStock(const int& num);
+    bool removeStock(const int& num);
 
     person getDirector();
     string getTitle();
