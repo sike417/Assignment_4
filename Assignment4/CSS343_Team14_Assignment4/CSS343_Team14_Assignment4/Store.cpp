@@ -15,27 +15,7 @@ Store::Store(string movieListFileName)
 
 Store::Store(ifstream & movieList)
 {
-	char movieType;
-	if (!movieList)
-	{
-		cout << "File could not be opened." << endl;
-		return;
-	}
-	while (!movieList.eof())
-	{
-		movieList >> movieType;
-		switch (movieType)
-		{
-		case 'F':
-			break;
-
-		case 'D':
-			break;
-
-		case 'C':
-			break;
-		}
-	}
+	LoadMovieFromFile(movieList);
 }
 
 
@@ -94,4 +74,15 @@ void Store::LoadMovieFromFile(ifstream & infile)
 
 void Store::LoadCustomersFromFile(ifstream & infile)
 {
+	string idstr, fName, lName;
+	while (infile >> idstr >> fName >> lName)
+	{
+		int id = stoi(idstr);
+		if(customers.contains(id) == false)
+		{
+			Customers cust(id);
+			cust.setName(fName, lName);
+			customers.insert(id, cust);
+		}
+	}
 }

@@ -10,6 +10,9 @@ using namespace std;
 class Movies
 {
     friend class Commands;
+
+
+
 public:
     Movies();
     virtual ~Movies();

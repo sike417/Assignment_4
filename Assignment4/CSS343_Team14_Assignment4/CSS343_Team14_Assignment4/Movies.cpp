@@ -11,6 +11,21 @@ Movies::~Movies()
 {
 }
 
+Person Movies::getDirector()
+{
+	return director;
+}
+
+string Movies::getTitle()
+{
+	return title;
+}
+
+int Movies::getYearReleased()
+{
+	return yearReleased;
+}
+
 void Movies::setTitle(const string & title)
 {
     this->title = title;
