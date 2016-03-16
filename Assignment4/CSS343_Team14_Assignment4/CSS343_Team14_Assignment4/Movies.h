@@ -1,6 +1,9 @@
 #ifndef MOVIES_H
 #define MOVIES_H
+<<<<<<< HEAD
 
+=======
+>>>>>>> sainos-master
 #pragma once
 #include "Commands.h"
 #include "Person.h"
@@ -14,8 +17,8 @@ public:
     Movies();
     virtual ~Movies();
  
-    bool addStock();
-    bool removeStock();
+    bool addStock(const int& num);
+    bool removeStock(const int& num);
 
     Person getDirector();
     string getTitle();

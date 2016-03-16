@@ -6,9 +6,13 @@
 #include <iostream>
 #include "Commands.h"
 #include "Inventory.h"
+<<<<<<< HEAD
 #include "HashTable.h"
 #include "Customers.h"
 
+=======
+#include "CustomerHash.h"
+>>>>>>> sainos-master
 using namespace std;
 
 class Store
