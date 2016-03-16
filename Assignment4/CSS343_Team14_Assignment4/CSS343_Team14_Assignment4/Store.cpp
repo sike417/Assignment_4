@@ -59,7 +59,6 @@ Store::Store(const string & movieListFileName, const string & customerListFileNa
     infile.close();
 }
 
-
 Store::~Store()
 {
 }

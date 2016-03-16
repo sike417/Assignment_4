@@ -1,2 +1,8 @@
 ﻿  Store.cpp
-  CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(47): error C2280: 'HashTable<int,Customers>::bucket::bucket(void)': attempting to reference a deleted function
+  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(30): note: compiler has generated 'HashTable<int,Customers>::bucket::bucket' here
+  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(47): note: while compiling class template member function 'HashTable<int,Customers>::HashTable(void)'
+  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(7): note: see reference to function template instantiation 'HashTable<int,Customers>::HashTable(void)' being compiled
+  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.h(32): note: see reference to class template instantiation 'HashTable<int,Customers>' being compiled
+  Main.cpp
+  Generating Code...
