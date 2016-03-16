@@ -31,9 +31,16 @@ void Movies::setTitle(const string & title)
     this->title = title;
 }
 
-void Movies::setStock(const int & stock)
+bool Movies::setStock(const int & stock)
 {
-    currentStock = stock;
+    if (stock < 0)
+    {
+        initialStock = 0;   //invalid input, defaults to 0
+        return false;
+    }
+    else
+        initialStock = stock, currentStock = initialStock;
+    return true;
 }
 
 void Movies::setDirector(const Person & director)
@@ -47,12 +54,7 @@ void Movies::setDirector(const string & first, const string & last)
     director.lastName = last;
 }
 
-bool Movies::setReleaseYear(int & releaseYear)
+void Movies::setReleaseYear(const int & releaseYear)
 {
-    return false;
-}
-
-void Movies::setType(char type)
-{
-    this->type = type;
+    this->yearReleased = releaseYear;
 }

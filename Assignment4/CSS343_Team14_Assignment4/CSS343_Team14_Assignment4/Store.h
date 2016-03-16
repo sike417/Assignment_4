@@ -15,16 +15,24 @@ class Store
 public:
     friend class Commands;
     Store();
-    Store(string movieListFileName);
+    Store(const string &movieListFileName);
     Store(ifstream &movieList);
+    Store(ifstream &movieList, ifstream &customerList);
+    Store(const string &movieListFileName, const string &customerListFileName);
+    Store(ifstream &movieList, ifstream &customerList, ifstream &transactionList);
+    Store(const string &movieListFileName, const string &customerListFileName, const string &transactionListFileName);
     virtual ~Store();
+
+    void LoadMovieFromFile(ifstream &infile);
+    void LoadCustomersFromFile(ifstream &infile);
+    void LoadTransactionsFromFile(ifstream &infile);
 
 private:
     Inventory storeInventory;
     HashTable<int, Customers> customers;
-    void LoadMovieFromFile(ifstream &infile);
-    void LoadCustomersFromFile(ifstream &infile);
-    void LoadTransactionsFromFile(ifstream &infile);
+    void retrieveClassic(ifstream &infile, Classics &classic, string &data);
+    void retrieveComedy(ifstream &infile, Comedy &comedy, string &data);
+    void retrieveDrama(ifstream &infile, Drama &drama, string &data);
 };
 
 #endif

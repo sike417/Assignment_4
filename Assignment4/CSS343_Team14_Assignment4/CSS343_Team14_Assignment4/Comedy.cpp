@@ -1,5 +1,15 @@
 #include "Comedy.h"
 
+Comedy::Comedy()
+{
+    type = 'F';
+}
+
+
+Comedy::~Comedy()
+{
+}
+
 ostream& operator <<(ostream& outStream, const Comedy &obj)
 {
 	outStream << "F, " << obj.currentStock << ", " << obj.director.firstName << " "
@@ -7,11 +17,4 @@ ostream& operator <<(ostream& outStream, const Comedy &obj)
 	return outStream;
 
 }
-Comedy::Comedy()
-{
-}
 
-
-Comedy::~Comedy()
-{
-}

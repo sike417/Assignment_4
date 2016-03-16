@@ -29,10 +29,10 @@ public:
     bool operator==(const Movies &obj);
 
     void setTitle(const string &title);
-    void setStock(const int &stock);
+    bool setStock(const int &stock);
     void setDirector(const Person &director);
     void setDirector(const string &first, const string &last);
-    bool setReleaseYear(int &releaseYear);
+    void setReleaseYear(const int &releaseYear);
 
 protected:
     string title;
@@ -41,7 +41,6 @@ protected:
     Person director;
     int yearReleased;
     char type;
-    void setType(char type); // can only set once
 };
 
 #endif

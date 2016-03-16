@@ -1,5 +1,15 @@
 #include "Drama.h"
 
+Drama::Drama()
+{
+    type = 'D';
+}
+
+
+Drama::~Drama()
+{
+}
+
 ostream& operator <<(ostream& outStream, const Drama &obj)
 {
 	outStream << "D, " << obj.currentStock << ", " << obj.director.firstName << " "
@@ -8,12 +18,3 @@ ostream& operator <<(ostream& outStream, const Drama &obj)
 
 }
 
-Drama::Drama()
-{
-
-}
-
-
-Drama::~Drama()
-{
-}
