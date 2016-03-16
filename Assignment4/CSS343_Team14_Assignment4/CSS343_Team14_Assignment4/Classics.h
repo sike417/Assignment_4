@@ -17,13 +17,8 @@ public:
     Classics();
     ~Classics();
 private:
-<<<<<<< HEAD
     Person majorActor;
     int month;
-=======
-    person majorActor;
-	int month;
->>>>>>> sainos-master
 };
 
 #endif

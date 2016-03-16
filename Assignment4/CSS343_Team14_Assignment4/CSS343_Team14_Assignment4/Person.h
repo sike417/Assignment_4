@@ -9,8 +9,6 @@ struct Person
 {
     string firstName;
     string lastName;
-<<<<<<< HEAD:Assignment4/CSS343_Team14_Assignment4/CSS343_Team14_Assignment4/Person.h
-=======
 };
 
 class People
@@ -19,7 +17,6 @@ class People
 public:
     People();
     ~People();
->>>>>>> sainos-master:Assignment4/CSS343_Team14_Assignment4/CSS343_Team14_Assignment4/People.h
 };
 
 #endif

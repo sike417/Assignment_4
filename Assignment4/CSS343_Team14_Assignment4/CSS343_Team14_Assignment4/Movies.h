@@ -1,9 +1,6 @@
 #ifndef MOVIES_H
 #define MOVIES_H
-<<<<<<< HEAD
 
-=======
->>>>>>> sainos-master
 #pragma once
 #include "Commands.h"
 #include "Person.h"
