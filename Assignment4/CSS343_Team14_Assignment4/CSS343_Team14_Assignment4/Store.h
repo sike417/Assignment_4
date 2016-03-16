@@ -25,6 +25,9 @@ private:
     void LoadMovieFromFile(ifstream &infile);
     void LoadCustomersFromFile(ifstream &infile);
     void LoadTransactionsFromFile(ifstream &infile);
+    void retrieveClassic(ifstream &infile, Classics &classic, string &data);
+    void retrieveComedy(ifstream &infile, Comedy &comedy, string &data);
+    void retrieveDrama(ifstream &infile, Drama &drama, string &data);
 };
 
 #endif

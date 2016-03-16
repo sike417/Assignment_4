@@ -1,3 +1,12 @@
 ﻿  Store.cpp
-  LINK : C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe not found or not built by the last incremental link; performing full link
+  Main.cpp
+  Movies.cpp
+  Inventory.cpp
+  History.cpp
+  Drama.cpp
+  Customers.cpp
+  Commands.cpp
+  Comedy.cpp
+  Classics.cpp
+  Generating Code...
   CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe

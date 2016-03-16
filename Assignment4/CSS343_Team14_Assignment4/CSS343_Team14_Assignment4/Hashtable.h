@@ -12,7 +12,7 @@ public:
     HashTable();
     ~HashTable();
 
-    bool contains(const key &key) const;
+    bool contains(const key &val) const;
     void empty();
     bool insert(const key &val, const object &obj) const;
     bool remove(const key &val);
@@ -46,4 +46,16 @@ template<class key, class object>
 HashTable<key, object>::~HashTable()
 {
 
+}
+
+template<class key, class object>
+inline bool HashTable<key, object>::contains(const key & val) const
+{
+    return false;
+}
+
+template<class key, class object>
+inline bool HashTable<key, object>::insert(const key & val, const object & obj) const
+{
+    return false;
 }
