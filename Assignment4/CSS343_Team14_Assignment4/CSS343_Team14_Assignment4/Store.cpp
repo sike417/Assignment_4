@@ -8,15 +8,55 @@ Store::Store()
 }
 
 //assumes that the user only inputs the file name not the extentsion
-Store::Store(string movieListFileName)
+Store::Store(const string &movieListFileName)
 {
     ifstream infile(movieListFileName + ".txt");
     LoadMovieFromFile(infile);
+    infile.close();
 }
 
 Store::Store(ifstream & movieList)
 {
 	LoadMovieFromFile(movieList);
+}
+
+Store::Store(ifstream & movieList, ifstream & customerList)
+{
+    LoadMovieFromFile(movieList);
+    LoadCustomersFromFile(movieList);
+}
+
+Store::Store(const string & movieListFileName, const string & customerListFileName)
+{
+    ifstream infile(movieListFileName + ".txt");
+    LoadMovieFromFile(infile);
+    infile.close();
+
+    infile.open(customerListFileName + ".txt");
+    LoadCustomersFromFile(infile);
+    infile.close();
+}
+
+Store::Store(ifstream & movieList, ifstream & customerList, ifstream & transactionList)
+{
+    LoadMovieFromFile(movieList);
+    LoadCustomersFromFile(customerList);
+    LoadTransactionsFromFile(customerList);
+}
+
+Store::Store(const string & movieListFileName, const string & customerListFileName, const string & transactionListFileName)
+{
+    ifstream infile(movieListFileName + ".txt");
+    LoadMovieFromFile(infile);
+    infile.close();
+
+    infile.open(customerListFileName + ".txt");
+    LoadCustomersFromFile(infile);
+    infile.close();
+
+    infile.open(transactionListFileName + ".txt");
+    LoadTransactionsFromFile(infile);
+    infile.close();
 }
 
 
@@ -69,6 +109,10 @@ void Store::LoadCustomersFromFile(ifstream & infile)
 			customers.insert(id, cust);
 		}
 	}
+}
+
+void Store::LoadTransactionsFromFile(ifstream & infile)
+{
 }
 
 void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
