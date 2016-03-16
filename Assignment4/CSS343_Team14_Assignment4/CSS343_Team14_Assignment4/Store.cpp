@@ -1,5 +1,5 @@
 #include "Store.h"
-
+#include <cstdlib>
 
 
 Store::Store()
@@ -10,11 +10,20 @@ Store::Store()
 Store::Store(string movieListFileName)
 {
     ifstream infile(movieListFileName + ".txt");
+    LoadMovieFromFile(infile);
+}
 
-    if (!infile)
-    {
-        cout << movieListFileName << endl;
-    }
+Store::Store(ifstream & movieList)
+{
+}
+
+
+Store::~Store()
+{
+}
+
+void Store::LoadMovieFromFile(ifstream & infile)
+{
 
     string data;
 
@@ -25,10 +34,32 @@ Store::Store(string movieListFileName)
         if (data == "C")
         {
             Classics classic;
+            classic.setType(data[0]);
+
+            infile >> data; //grab next section.
+
+            data.pop_back();//removes trailing comma.
+
+            classic.setStock(atoi(data.c_str()));
+
+            Person director;
+
+            infile >> director.firstName;
+            infile >> director.lastName;
+            director.lastName.pop_back(); //removes trailing comma
+
+            classic.setDirector(director);
+
+            infile >> data;
+            data.pop_back(); //removes trailing whitespace.
+            classic.setTitle(data);
+
+
         }
         else if (data == "F")
         {
             Comedy comedy;
+            
         }
         else if (data == "D")
         {
@@ -38,15 +69,9 @@ Store::Store(string movieListFileName)
         {
             //invalid data
         }
-
     }
 }
 
-Store::Store(ifstream & movieList)
-{
-}
-
-
-Store::~Store()
+void Store::LoadCustomersFromFile(ifstream & infile)
 {
 }

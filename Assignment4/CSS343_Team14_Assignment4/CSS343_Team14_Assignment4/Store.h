@@ -23,6 +23,9 @@ public:
 private:
     Inventory storeInventory;
     HashTable<int, Customers> customers;
+    void LoadMovieFromFile(ifstream &infile);
+    void LoadCustomersFromFile(ifstream &infile);
+    void LoadTransactionsFromFile(ifstream &infile);
 };
 
 #endif
