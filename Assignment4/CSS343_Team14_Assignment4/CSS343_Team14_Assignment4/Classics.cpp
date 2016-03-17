@@ -19,7 +19,7 @@ ostream& operator <<(ostream& outStream, const Classics &obj)
 	return outStream;
 }
 
-bool Classics::operator<(const Classics & obj)
+bool Classics::operator<(const Classics & obj) const
 {
 	if (this->yearReleased == obj.yearReleased)
 	{
@@ -62,7 +62,7 @@ bool Classics::operator<(const Classics & obj)
 	return false;
 }
 
-bool Classics::operator>(const Classics & obj)
+bool Classics::operator>(const Classics & obj) const
 {
 	if (this->yearReleased == obj.yearReleased)
 	{
@@ -105,7 +105,7 @@ bool Classics::operator>(const Classics & obj)
 	return false;
 }
 
-bool Classics::operator==(const Classics & obj)
+bool Classics::operator==(const Classics & obj) const
 {
 	if (this->yearReleased == obj.yearReleased && this->month == obj.month
 		&& this->majorActor.firstName == obj.majorActor.firstName
@@ -140,5 +140,15 @@ bool Classics::setMonth(const int & month)
         this->month = month;
         return true;
     }
+}
+
+int Classics::getMonth() const
+{
+	return month;
+}
+
+Person Classics::getMajorActor() const
+{
+	return majorActor;
 }
 
