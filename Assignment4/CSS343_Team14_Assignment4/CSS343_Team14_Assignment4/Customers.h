@@ -7,6 +7,7 @@
 class Customers: public Person
 {
 public:
+    Customers();
     Customers(int id);
     ~Customers();
     bool operator==(const Customers &obj);
