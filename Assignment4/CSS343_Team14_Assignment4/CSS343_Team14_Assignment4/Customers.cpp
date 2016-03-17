@@ -53,6 +53,11 @@ Person Customers::getName()
 	return this->name;
 }
 
+void Customers::addTransaction(string transaction)
+{
+    history.addTransaction(transaction);
+}
+
 void Customers::displayHistory()
 {
     cout << history;
