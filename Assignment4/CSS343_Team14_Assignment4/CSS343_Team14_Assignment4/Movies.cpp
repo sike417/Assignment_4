@@ -13,7 +13,7 @@ Movies::~Movies()
 
 bool Movies::addStock(const int & num)
 {
-    if (currentStock >= initialStock)
+    if (currentStock < initialStock)
     {
         currentStock += num;
         return true;
@@ -34,6 +34,26 @@ bool Movies::removeStock(const int & num)
 
 }
 
+bool Movies::addInitialStock(const int & num)
+{
+    if (num >= 0)
+    {
+        initialStock += num;
+        return true;
+    }
+    return false;
+}
+
+bool Movies::removeInitialStock(const int & num)
+{
+    if (num >= 0)
+    {
+        initialStock -= num;
+        return true;
+    }
+    return false;
+}
+
 Person Movies::getDirector() const
 {
 	return director;
@@ -47,6 +67,16 @@ string Movies::getTitle() const
 int Movies::getYearReleased() const
 {
 	return yearReleased;
+}
+
+int Movies::getInitialStock() const
+{
+    return initialStock;
+}
+
+int Movies::getCurrentStock() const
+{
+    return currentStock;
 }
 
 void Movies::setTitle(const string & title)

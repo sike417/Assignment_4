@@ -60,5 +60,7 @@ void Customers::addTransaction(string transaction)
 
 void Customers::displayHistory()
 {
+     //(1234)
+    cout << "-------------------------Customer History(" << id << ")------------------------ " << endl;
     cout << history;
 }

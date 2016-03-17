@@ -29,9 +29,14 @@ public:
     bool addStock(const int& num);
     bool removeStock(const int& num);
 
+    bool addInitialStock(const int &num);
+    bool removeInitialStock(const int &num);
+
     Person getDirector() const;
     string getTitle() const;
     int getYearReleased() const;
+    int getInitialStock() const;
+    int getCurrentStock() const;
 
     void setTitle(const string &title);
     bool setStock(const int &stock);

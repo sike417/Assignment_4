@@ -38,7 +38,9 @@ bool Inventory::addClassic(const Classics &newClassic)
 	{
 		if (newClassic == classicList[i])
 		{
-			return false;
+        classicList[i].addInitialStock(newClassic.getCurrentStock());
+        classicList[i].addStock(newClassic.getCurrentStock());
+        return true;
 		}
 	}
 
