@@ -190,4 +190,15 @@ inline bool HashTable<key, object>::isPrime(const int & num)
 template<class key, class object>
 inline void HashTable<key, object>::rehash(int num)
 {
+    num = findNextPrime(num + 1);
+
+    vector<bucket> oldTable = table;
+    table.resize(num);
+
+    for (int i = 0; i < table.size(); i++)
+    {
+        table[i].info = EMPTY;
+        table[i].element = NULL;
+        table[i].itemKey = 0;
+    }
 }
