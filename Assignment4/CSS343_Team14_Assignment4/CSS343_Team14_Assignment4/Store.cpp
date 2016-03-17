@@ -1,5 +1,6 @@
 #include "Store.h"
 #include "HashTable.h"
+#include <sstream>
 #include <cstdlib>
 
 
@@ -126,7 +127,7 @@ void Store::LoadTransactionsFromFile(ifstream & infile)
         }
         else if (typeOfTransaction == "R")
         {
-            readBorrow(infile);
+            readReturn(infile);
         }
         else if (typeOfTransaction == "H")
         {
@@ -182,6 +183,7 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
     classic.setMonth(intData);
     infile >> intData;
     classic.setReleaseYear(intData);
+    storeInventory.addClassic(classic);
 }
 
 void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
@@ -218,6 +220,7 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
 
     infile >> intData;
     comedy.setReleaseYear(intData);
+    storeInventory.addComedy(comedy);
 }
 
 void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
@@ -254,6 +257,7 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
 
     infile >> intData;
     drama.setReleaseYear(intData);
+    storeInventory.addDrama(drama);
 }
 
 void Store::readReturn(ifstream & infile)
@@ -271,6 +275,19 @@ void Store::readReturn(ifstream & infile)
 
         infile >> month >> year >> majorActor.firstName >> majorActor.lastName;
         executeClassicReturn(id, month, year, majorActor);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+
+        string transaction = "R " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + static_cast<ostringstream*>(&(ostringstream() << month))->str();
+        transaction += " " + static_cast<ostringstream*>(&(ostringstream() << year))->str()
+            + " " + majorActor.firstName + " " + majorActor.lastName;
+
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "F")
     {
@@ -278,18 +295,32 @@ void Store::readReturn(ifstream & infile)
         string data, title = "";
         int year;
 
-        infile >> data;
 
-        while (data[data.size() - 1] != ',')
+        int count = 0;
+        while (infile >> data)
         {
+            if (count != 0)
+                title.append(" ");
             title.append(data);
-            infile >> data;
+            count += 1;
+            if (title[title.size() - 1] == ',')
+                break;
         }
-        data.pop_back();
-        title.append(data);
+        title.pop_back();
 
         infile >> year;
         executeComedyReturn(id, title, year);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+
+        string transaction = "R " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + title + ", "
+            + static_cast<ostringstream*>(&(ostringstream() << year))->str();
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "D")
     {
@@ -298,16 +329,32 @@ void Store::readReturn(ifstream & infile)
         string data, title;
 
         infile >> director.firstName >> director.lastName;
-        infile >> data;
 
-        while (data[data.size() - 1] != ',')
+        int count = 0;
+        while (infile >> data)
         {
+            if (count != 0)
+                title.append(" ");
             title.append(data);
-            infile >> data;
+            count += 1;
+
+            if (title[title.size() - 1] == ',')
+                break;
         }
-        data.pop_back();
-        title.append(data);
+        title.pop_back();
+
         executeDramaReturn(id, director, title);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + transaction + " " + mediaType + " "
+            + movieType + " " + director.firstName + " " + director.lastName + ", " + title + ",";
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else
     {
@@ -330,6 +377,20 @@ void Store::readBorrow(ifstream & infile)
 
         infile >> month >> year >> majorActor.firstName >> majorActor.lastName;
         executeClassicBorrow(id, month, year, majorActor);
+
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + static_cast<ostringstream*>(&(ostringstream() << month))->str();
+        transaction += " " + static_cast<ostringstream*>(&(ostringstream() << year))->str()
+            + " " + majorActor.firstName + " " + majorActor.lastName;
+
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "F")
     {
@@ -337,18 +398,33 @@ void Store::readBorrow(ifstream & infile)
         string data, title = "";
         int year;
 
-        infile >> data;
+        int count = 0;
 
-        while (data[data.size() - 1] != ',')
+        while (infile >> data)
         {
+            if (count != 0)
+                title.append(" ");
             title.append(data);
-            infile >> data;
+            count += 1;
+
+            if (title[title.size() - 1] == ',')
+                break;
         }
-        data.pop_back();
-        title.append(data);
+        title.pop_back();
 
         infile >> year;
         executeComedyBorrow(id, title, year);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + title + ", "
+            + static_cast<ostringstream*>(&(ostringstream() << year))->str();
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "D")
     {
@@ -357,16 +433,34 @@ void Store::readBorrow(ifstream & infile)
         string data, title;
 
         infile >> director.firstName >> director.lastName;
-        infile >> data;
+        director.lastName.pop_back();
 
-        while (data[data.size() - 1] != ',')
+        int count = 0;
+        while (infile >> data)
         {
+            if (count != 0)
+                title.append(" ");
             title.append(data);
-            infile >> data;
+            count += 1;
+
+            if (title[title.size() - 1] == ',')
+                break;
         }
-        data.pop_back();
-        title.append(data);
+        title.pop_back();
+
         executeDramaBorrow(id, director, title);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+
+        //constructs the transaction from the scattered pieces.
+        string transaction = "B " + static_cast<ostringstream*>( &(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + director.firstName 
+            + " " + director.lastName + ", " + title + ",";
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else
     {
@@ -376,7 +470,7 @@ void Store::readBorrow(ifstream & infile)
 
 bool Store::executeDramaBorrow(const int id, const Person & director, const string & title)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
     if (exists = true)
@@ -391,7 +485,7 @@ bool Store::executeDramaBorrow(const int id, const Person & director, const stri
 
 bool Store::executeComedyBorrow(const int & id, const string & title, const int year)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
     if (exists = true)
@@ -406,54 +500,41 @@ bool Store::executeComedyBorrow(const int & id, const string & title, const int 
 
 bool Store::executeClassicBorrow(const int & id, const int month, const int year, Person majorActor)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
-        Customers customer;
-        bool exists = customers.retrieve(id, customer);
+        Classics *classic;
+        exists = storeInventory.retrieveClassic(month, year, majorActor, classic);
 
-        if (exists = true)
+        if (exists == true)
         {
-            if (exists = true)
-            {
-                Classics classic;
-                exists = storeInventory.retrieveClassic(month, year, majorActor, classic);
-
-                if (exists = true)
-                {
-                    
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
-    else
-    {
-        return false;
-    }
+
 }
 
 bool Store::executeDramaReturn(const int & id, const Person & director, const string & title)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
-        Drama drama;
-        exists = customer.borrowed.retrieveDrama(director, title, drama);
+        Drama *drama;
+        exists = customer->borrowed.retrieveDrama(director, title, drama);
 
-        if (exists = true)
+        if (exists == true)
         {
-            drama.removeStock(1);
+            drama->removeStock(1);
             storeInventory.retrieveDrama(director, title, drama);
-            drama.addStock(1);
+            drama->addStock(1);
             return true;
         }
         else
@@ -469,27 +550,24 @@ bool Store::executeDramaReturn(const int & id, const Person & director, const st
 
 bool Store::executeComedyReturn(const int & id, const string & title, const int year)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
-        if (exists = true)
-        {
-            Comedy comedy;
-            exists = customer.borrowed.retrieveComedy(title, year, comedy);
+        Comedy *comedy;
+        exists = customer->borrowed.retrieveComedy(title, year, comedy);
 
-            if (exists = true)
-            {
-                comedy.removeStock(1);
-                storeInventory.retrieveComedy(title, year, comedy);
-                comedy.addStock(1);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        if (exists == true)
+        {
+            comedy->removeStock(1);
+            storeInventory.retrieveComedy(title, year, comedy);
+            comedy->addStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     else
@@ -500,27 +578,24 @@ bool Store::executeComedyReturn(const int & id, const string & title, const int 
 
 bool Store::executeClassicReturn(const int & id, const int month, const int year, Person majorActor)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
-        if (exists = true)
-        {
-            Classics classic;
-            exists = customer.borrowed.retrieveClassic(month, year, majorActor, classic);
+        Classics *classic;
+        exists = customer->borrowed.retrieveClassic(month, year, majorActor, classic);
 
-            if (exists = true)
-            {
-                classic.removeStock(1);
-                storeInventory.retrieveClassic(month, year, majorActor, classic);
-                classic.addStock(1);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        if (exists == true)
+        {
+            classic->removeStock(1);
+            storeInventory.retrieveClassic(month, year, majorActor, classic);
+            classic->addStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     else
@@ -533,12 +608,12 @@ bool Store::executeClassicReturn(const int & id, const int month, const int year
 
 bool Store::displayHistory(const int id)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
     if (exists = true)
     {
-        customer.displayHistory();
+        customer->displayHistory();
     }
     else
     {
@@ -549,5 +624,6 @@ bool Store::displayHistory(const int id)
 
 void Store::displayInventory()
 {
+    cout << storeInventory;
     //cout >> storeInventory;
 }
