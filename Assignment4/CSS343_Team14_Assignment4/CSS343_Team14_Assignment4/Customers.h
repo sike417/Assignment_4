@@ -12,9 +12,9 @@ public:
     ~Customers();
     bool operator==(const Customers &obj);
     bool operator!=(const Customers &obj);
-	  void setName(const string& first, const string &last);
-	  int getID();
-	  Person getName();
+	void setName(const string& first, const string &last);
+	int getID();
+	Person getName();
 
 private:
     Person name;

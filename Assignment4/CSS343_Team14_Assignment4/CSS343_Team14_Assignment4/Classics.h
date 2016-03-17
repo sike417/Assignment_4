@@ -14,9 +14,9 @@ public:
 	bool operator<(const Classics &obj);
 	bool operator>(const Classics &obj);
 	bool operator==(const Classics &obj);
-  void setMajorActor(const Person &majorActor);
-  void setMajorActor(const string &firstName, const string &lastName);
-  bool setMonth(const int &month);
+	void setMajorActor(const Person &majorActor);
+	void setMajorActor(const string &firstName, const string &lastName);
+	bool setMonth(const int &month);
 
     Classics();
     ~Classics();

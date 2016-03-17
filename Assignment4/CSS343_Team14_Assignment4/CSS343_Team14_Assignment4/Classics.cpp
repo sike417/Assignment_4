@@ -19,6 +19,104 @@ ostream& operator <<(ostream& outStream, const Classics &obj)
 	return outStream;
 }
 
+bool Classics::operator<(const Classics & obj)
+{
+	if (this->yearReleased == obj.yearReleased)
+	{
+		if (this->month == obj.month)
+		{
+			if (this->majorActor.firstName == obj.majorActor.firstName)
+			{
+				if (this->majorActor.lastName < obj.majorActor.lastName)
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	else if (this->yearReleased == obj.yearReleased)
+	{
+		if (this->month == obj.month)
+		{
+			if (this->majorActor.firstName < obj.majorActor.firstName)
+			{
+				return true;
+			}
+		}
+	}
+
+	else if (this->yearReleased == obj.yearReleased)
+	{
+		if (this->month < obj.month)
+		{
+			return true;
+		}
+	}
+
+	else if (this->yearReleased < obj.yearReleased)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Classics::operator>(const Classics & obj)
+{
+	if (this->yearReleased == obj.yearReleased)
+	{
+		if (this->month == obj.month)
+		{
+			if (this->majorActor.firstName == obj.majorActor.firstName)
+			{
+				if (this->majorActor.lastName > obj.majorActor.lastName)
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	else if (this->yearReleased == obj.yearReleased)
+	{
+		if (this->month == obj.month)
+		{
+			if (this->majorActor.firstName > obj.majorActor.firstName)
+			{
+				return true;
+			}
+		}
+	}
+
+	else if (this->yearReleased == obj.yearReleased)
+	{
+		if (this->month > obj.month)
+		{
+			return true;
+		}
+	}
+
+	else if (this->yearReleased > obj.yearReleased)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Classics::operator==(const Classics & obj)
+{
+	if (this->yearReleased == obj.yearReleased && this->month == obj.month
+		&& this->majorActor.firstName == obj.majorActor.firstName
+		&& this->majorActor.lastName == obj.majorActor.lastName)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void Classics::setMajorActor(const Person & majorActor)
 {
     this->majorActor = majorActor;  //creates a copy of the major actor variable.
