@@ -98,7 +98,7 @@ void Store::LoadMovieFromFile(ifstream & infile)
 void Store::LoadCustomersFromFile(ifstream & infile)
 {
 	string idstr, fName, lName;
-	while (infile >> idstr >> fName >> lName)
+	while (infile >> idstr >> lName >> fName)
 	{
 		int id = stoi(idstr);
 		if(customers.contains(id) == false)
