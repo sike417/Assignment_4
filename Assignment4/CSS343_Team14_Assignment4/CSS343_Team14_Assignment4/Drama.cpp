@@ -6,7 +6,6 @@ Drama::Drama()
     type = 'D';
 }
 
-
 Drama::~Drama()
 {
 }

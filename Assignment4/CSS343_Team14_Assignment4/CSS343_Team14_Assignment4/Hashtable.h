@@ -22,11 +22,22 @@ public:
     enum bucketType { EMPTY, DELETED, ACTIVE };
 
 private:
-    struct bucket
+    class bucket //needed to have it as a class so that i could use the copy constructor.
     {
+    public:
         object element;
         key itemKey;
         bucketType info;
+        bucket()
+        {
+            info = EMPTY;
+            itemKey = 0;
+            element = NULL;
+        }
+        ~bucket()
+        {
+
+        }
     };
 
     vector<bucket> table;
@@ -34,19 +45,17 @@ private:
     float loadFactor;
     int collisions;
 
-    bool isActive(int position) const;      //checks if a given bucket is currently being used.
     int hashFunction(const key &val) const;            //hash function
-    int secondHashFunction(const key &val);
-    int findlocal (const key &val, const object &obj) const;       //finds the location of an object
-    int findNextPrime(const int &current) const;    //finds the next prime number that comes after the current inputted number
-    void rehash();                          //rehashes the hash table with an expanded size
+    int secondHashFunction(const key &val) const;
+    int findNextPrime(int current);    //finds the next prime number that comes after the current inputted number
+    bool isPrime(const int &num);
+    void rehash(int num);                          //rehashes the hash table with an expanded size
 };
 
 template<class key, class object>
 HashTable<key, object>::HashTable()
 {
     empty();
-    //table
 }
 
 template<class key, class object>
@@ -58,12 +67,33 @@ HashTable<key, object>::~HashTable()
 template<class key, class object>
 inline bool HashTable<key, object>::contains(const key & val) const
 {
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].itemKey == val)
+        {
+            return true;
+        }
+        elementNum = secondHashFunction(val);
+    }
+
     return false;
 }
 
 template<class key, class object>
 inline bool HashTable<key, object>::contains(const key & val, const object & obj) const
 {
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].element == obj)
+        {
+            return true;
+        }
+        elementNum = secondHashFunction(val)
+    }
     return false;
 }
 
@@ -74,7 +104,10 @@ inline void HashTable<key, object>::empty()
     for (int i = 0; i < table.size(); i++)
     {
         table[i].info = EMPTY;
+        table[i].element = NULL;
+        table[i].itemKey = 0;
     }
+    table.resize(STARTINGSIZE);
 }
 
 template<class key, class object>
@@ -83,7 +116,7 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
     int elementNum = hashFunction(val);
     bucket tempStorage = table[elementNum];
 
-    while (tempStorage.info != EMPTY ||tempStorage.info != DELETED && tempStorage.element != obj)
+    while ((tempStorage.info != EMPTY || tempStorage.info != DELETED) && tempStorage.element != obj)
     {
         collisions += 1;
         elementNum = secondHashFunction(val);
@@ -94,6 +127,13 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
         table[elementNum].info = ACTIVE;
         table[elementNum].element = obj;
         table[elementNum].itemKey = val;
+
+        currentSize += 1;
+        loadFactor = static_cast<float>(currentSize) / table.size();
+
+        if (loadFactor > .5)
+            rehash(table.size() * 2);
+        collisions = 0;
         return true;
     }
     else
@@ -109,7 +149,56 @@ inline int HashTable<key, object>::hashFunction(const key & val) const
 }
 
 template<class key, class object>
-inline int HashTable<key, object>::secondHashFunction(const key & val)
+inline int HashTable<key, object>::secondHashFunction(const key & val) const
 {
     return (hashFunction(val) + collisions * (7 - (val % 7)));
+}
+
+template<class key, class object>
+inline int HashTable<key, object>::findNextPrime(int current)
+{
+    while(true)
+    {
+        if (isPrime(++current) == true)
+            break;
+        else
+            continue;
+    }
+    return current;
+}
+
+template<class key, class object>
+inline bool HashTable<key, object>::isPrime(const int &num)
+{
+
+    if (num == 2 || num == 3)
+        return true;
+    else if (num % 2 == 0 || num % 3 == 0)
+        return false;
+
+    for (int i = 3; i < num / 2; i += 2)
+    {
+        if (num % (i - 1) == 0)
+            return false;
+        else if (num % (i + 1) == 0)
+            return false;
+    }
+
+    return true;
+}
+
+template<class key, class object>
+inline void HashTable<key, object>::rehash(int num)
+{
+    num = findNextPrime(num + 1);
+
+    vector<bucket> oldTable = table;
+    table.resize(num);
+
+    for (int i = 0; i < table.size(); i++)
+    {
+        table[i].info = EMPTY;
+        table[i].element = NULL;
+        table[i].itemKey = 0;
+    }
 }

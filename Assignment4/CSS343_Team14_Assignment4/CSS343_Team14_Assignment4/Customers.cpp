@@ -1,9 +1,13 @@
 #include "Customers.h"
 
 
+Customers::Customers()
+{
+}
+
 Customers::Customers(int id)
 {
-	this->id = id;
+    this->id = id;
 }
 
 
