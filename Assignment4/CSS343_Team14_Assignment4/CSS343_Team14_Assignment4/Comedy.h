@@ -7,9 +7,9 @@ class Comedy :
 	friend ostream& operator <<(ostream& outStream, const Comedy &obj);
 
 public:
-    using Movies::operator<;
-    using Movies::operator>;
-    using Movies::operator==;
+	bool operator<(const Comedy &obj);
+	bool operator>(const Comedy &obj);
+	bool operator==(const Comedy &obj);
 
     Comedy();
     ~Comedy();
