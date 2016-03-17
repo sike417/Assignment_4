@@ -19,7 +19,7 @@ ostream& operator <<(ostream& outStream, const Comedy &obj)
 
 }
 
-bool Comedy::operator<(const Comedy & obj)
+bool Comedy::operator<(const Comedy & obj) const
 {
 	if (this->title == obj.title)
 	{
@@ -37,7 +37,7 @@ bool Comedy::operator<(const Comedy & obj)
 	return false;
 }
 
-bool Comedy::operator>(const Comedy & obj)
+bool Comedy::operator>(const Comedy & obj) const
 {
 	if (this->title == obj.title)
 	{
@@ -55,7 +55,7 @@ bool Comedy::operator>(const Comedy & obj)
 	return false;
 }
 
-bool Comedy::operator==(const Comedy & obj)
+bool Comedy::operator==(const Comedy & obj) const
 {
 	if (this->title == obj.title && this->yearReleased == obj.yearReleased)
 	{

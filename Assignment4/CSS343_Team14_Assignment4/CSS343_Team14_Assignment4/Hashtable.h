@@ -1,5 +1,19 @@
+// ----------------------------------------------------HashTable.h-------------------------------------------------------
+// Jayse Farrell, Eduardo Sainos CSS343 Section Number
+// Created:	March 8, 2016
+// Date of Last Modification:	March 16, 2016
+// --------------------------------------------------------------------------------------------------------------------
+// Purpose: This class will be used to represent the template for a hash table that will be 
+// used for storing both the customer information. The hash table contains a bucket class 
+// which holds a variable for a key, an object for storage and the bucketype info which
+// will let the program know if the bucket is empty, deleted, or active.  
+// --------------------------------------------------------------------------------------------------------------------
+// Notes on specifications, special algorithms, and assumptions.
+// This class assumes that all of the information read from file is correct and valid.
+// --------------------------------------------------------------------------------------------------------------------
+#ifndef HASH_TABLE_H
+#define HASH_TABLE_H
 #pragma once
-
 #include <iostream>
 #include <vector>
 
@@ -54,6 +68,8 @@ private:
     bool isPrime(const int &num);
     void rehash(int num);                          //rehashes the hash table with an expanded size
 };
+
+#endif
 
 template<class key, class object>
 HashTable<key, object>::HashTable()

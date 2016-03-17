@@ -18,7 +18,7 @@ ostream& operator <<(ostream& outStream, const Drama &obj)
 
 }
 
-bool Drama::operator<(const Drama & obj)
+bool Drama::operator<(const Drama & obj) const
 {
 	if (this->director.firstName == obj.director.firstName)
 	{
@@ -47,7 +47,7 @@ bool Drama::operator<(const Drama & obj)
 	return false;
 }
 
-bool Drama::operator>(const Drama & obj)
+bool Drama::operator>(const Drama & obj) const
 {
 	if (this->director.firstName == obj.director.firstName)
 	{
@@ -76,7 +76,7 @@ bool Drama::operator>(const Drama & obj)
 	return false;
 }
 
-bool Drama::operator==(const Drama & obj)
+bool Drama::operator==(const Drama & obj) const
 {
 	if (this->director.firstName == obj.director.firstName
 		&& this->director.lastName == obj.director.lastName

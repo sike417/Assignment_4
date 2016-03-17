@@ -1,6 +1,15 @@
 #include "History.h"
 
+ostream& operator<<(ostream& output, const History &obj)
+{
+	output << "----------------------------Customer History--------------------------- " << endl;
+	for (int i = 0; i < obj.history.size(); i++)
+	{
+		output << obj.history[i] << endl;
+	}
 
+	return output;
+}
 
 History::History()
 {
@@ -11,8 +20,7 @@ History::~History()
 {
 }
 
-ostream & operator<<(ostream & output, const History & obj)
+void History::addTransaction(string transaction)
 {
-    // TODO: insert return statement here
-    return output;
+	history.push_back(transaction);
 }
