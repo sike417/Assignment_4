@@ -159,6 +159,8 @@ inline bool HashTable<key, object>::remove(const key & val, const object & obj)
         return false;
     else
     {
+        currentSize -= 1;
+        loadFactor = static_cast<float>(currentSize) / table.size();
         table[elementNumber].info = DELETED;
     }
 }
@@ -243,6 +245,7 @@ inline void HashTable<key, object>::rehash(int num)
     }
 
     currentSize = 0;
+    loadFactor = 0;
 
     for (int i = 0; i < oldTable.size(); i++)
     {
