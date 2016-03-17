@@ -10,7 +10,7 @@ c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignmen
   c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(272): note: while compiling class template member function 'void HashTable<int,Customers>::rehash(int)'
   c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(180): note: see reference to function template instantiation 'void HashTable<int,Customers>::rehash(int)' being compiled
 c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(288): warning C4018: '<': signed/unsigned mismatch
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(484): warning C4715: 'Store::executeDramaBorrow': not all control paths return a value
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(499): warning C4715: 'Store::executeComedyBorrow': not all control paths return a value
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(521): warning C4715: 'Store::executeClassicBorrow': not all control paths return a value
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(516): warning C4715: 'Store::executeDramaBorrow': not all control paths return a value
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(531): warning C4715: 'Store::executeComedyBorrow': not all control paths return a value
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(553): warning C4715: 'Store::executeClassicBorrow': not all control paths return a value
   CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe

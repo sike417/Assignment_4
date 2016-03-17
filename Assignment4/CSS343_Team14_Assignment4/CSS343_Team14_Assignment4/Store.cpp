@@ -153,8 +153,19 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
     classic.setStock(intData);
     infile >> data;             //grabs and dismisses the remaining comma
 
-    infile >> director.firstName >> director.lastName;
-    director.lastName.pop_back(); //removes trailing comma
+    infile >> director.firstName >> director.middleName;
+
+    if(director.middleName[director.middleName.size() - 1] == ',')
+    {
+        director.lastName = director.middleName;
+        director.middleName = "";
+        director.lastName.pop_back();
+    }
+    else
+    {
+        infile >> director.lastName;
+        director.lastName.pop_back(); //removes trailing comma
+    }
     classic.setDirector(director);
 
     intData = 0;
@@ -176,7 +187,8 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
     }
     classic.setTitle(title);
 
-    infile >> director.firstName >> director.lastName;  //reuse director for major actor.
+    infile >> director.firstName >> director.lastName;      //reuse director for majoractor
+
     classic.setMajorActor(director);
 
     infile >> intData;
@@ -195,8 +207,18 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
     infile >> intData >> data;
     comedy.setStock(intData);
 
-    infile >> director.firstName >> director.lastName;
-    director.lastName.pop_back();
+    infile >> director.firstName >> director.middleName;
+    if (director.middleName[director.middleName.size() - 1] == ',')
+    {
+        director.lastName = director.middleName;
+        director.middleName = "";
+        director.lastName.pop_back();
+    }
+    else
+    {
+        infile >> director.lastName;
+        director.lastName.pop_back(); //removes trailing comma
+    }
     comedy.setDirector(director);
 
     intData = 0;
@@ -232,8 +254,18 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
     infile >> intData >> data;
     drama.setStock(intData);
 
-    infile >> director.firstName >> director.lastName;
-    director.lastName.pop_back();
+    infile >> director.firstName >> director.middleName;
+    if (director.middleName[director.middleName.size() - 1] == ',')
+    {
+        director.lastName = director.middleName;
+        director.middleName = "";
+        director.lastName.pop_back();
+    }
+    else
+    {
+        infile >> director.lastName;
+        director.lastName.pop_back(); //removes trailing comma
+    }
     drama.setDirector(director);
 
     intData = 0;
