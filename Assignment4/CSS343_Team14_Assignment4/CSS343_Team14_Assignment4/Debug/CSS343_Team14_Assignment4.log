@@ -12,8 +12,6 @@ c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignmen
 c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(288): warning C4018: '<': signed/unsigned mismatch
 c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(390): warning C4715: 'Store::executeDramaBorrow': not all control paths return a value
 c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(405): warning C4715: 'Store::executeComedyBorrow': not all control paths return a value
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(420): warning C4715: 'Store::executeClassicBorrow': not all control paths return a value
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(434): warning C4715: 'Store::executeDramaReturn': not all control paths return a value
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(449): warning C4715: 'Store::executeComedyReturn': not all control paths return a value
-  LINK : C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe not found or not built by the last incremental link; performing full link
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(440): warning C4715: 'Store::executeClassicBorrow': not all control paths return a value
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(499): warning C4715: 'Store::executeComedyReturn': not all control paths return a value
   CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe

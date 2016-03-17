@@ -411,7 +411,27 @@ bool Store::executeClassicBorrow(const int & id, const int month, const int year
 
     if (exists = true)
     {
+        Customers customer;
+        bool exists = customers.retrieve(id, customer);
 
+        if (exists = true)
+        {
+            if (exists = true)
+            {
+                Classics classic;
+                exists = storeInventory.retrieveClassic(month, year, majorActor, classic);
+
+                if (exists = true)
+                {
+                    
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
     else
     {
@@ -426,6 +446,20 @@ bool Store::executeDramaReturn(const int & id, const Person & director, const st
 
     if (exists = true)
     {
+        Drama drama;
+        exists = customer.borrowed.retrieveDrama(director, title, drama);
+
+        if (exists = true)
+        {
+            drama.removeStock(1);
+            storeInventory.retrieveDrama(director, title, drama);
+            drama.addStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -440,7 +474,23 @@ bool Store::executeComedyReturn(const int & id, const string & title, const int 
 
     if (exists = true)
     {
-       // exists = customer.borrowed.findComedy(title, year);
+        if (exists = true)
+        {
+            Comedy comedy;
+            exists = customer.borrowed.retrieveComedy(title, year, comedy);
+
+            if (exists = true)
+            {
+                comedy.removeStock(1);
+                storeInventory.retrieveComedy(title, year, comedy);
+                comedy.addStock(1);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     else
     {
@@ -455,11 +505,22 @@ bool Store::executeClassicReturn(const int & id, const int month, const int year
 
     if (exists = true)
     {
-        //exists = customer.borrowed.findClassic(month, year, majorActor);
-
-        if (exists == true)
+        if (exists = true)
         {
-            
+            Classics classic;
+            exists = customer.borrowed.retrieveClassic(month, year, majorActor, classic);
+
+            if (exists = true)
+            {
+                classic.removeStock(1);
+                storeInventory.retrieveClassic(month, year, majorActor, classic);
+                classic.addStock(1);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
     else
