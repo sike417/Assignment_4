@@ -11,17 +11,36 @@ Movies::~Movies()
 {
 }
 
-Person Movies::getDirector()
+bool Movies::addStock(const int & num)
+{
+	currentStock += num;
+	return true;
+}
+
+bool Movies::removeStock(const int & num)
+{
+	int temp = (currentStock - num);
+	if (temp < 0)
+	{
+		return false;
+	}
+
+	currentStock = temp;
+	return true; 
+
+}
+
+Person Movies::getDirector() const
 {
 	return director;
 }
 
-string Movies::getTitle()
+string Movies::getTitle() const
 {
 	return title;
 }
 
-int Movies::getYearReleased()
+int Movies::getYearReleased() const
 {
 	return yearReleased;
 }
