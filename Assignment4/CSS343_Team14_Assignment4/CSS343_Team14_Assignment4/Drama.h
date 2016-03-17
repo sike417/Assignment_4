@@ -5,7 +5,6 @@
 class Drama :
     public Movies
 {
-    friend class Commands;
 	friend ostream& operator <<(ostream& outStream, const Drama &obj);
 public:
 	bool operator<(const Drama &obj);

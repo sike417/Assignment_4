@@ -4,7 +4,6 @@
 #pragma once
 #include <fstream>
 #include <iostream>
-#include "Commands.h"
 #include "Inventory.h"
 #include "HashTable.h"
 #include "Customers.h"
@@ -13,7 +12,6 @@ using namespace std;
 class Store
 {
 public:
-    friend class Commands;
     Store();
     Store(const string &movieListFileName);
     Store(ifstream &movieList);

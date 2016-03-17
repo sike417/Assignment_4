@@ -11,7 +11,6 @@ using namespace std;
 
 class Inventory
 {
-    friend class Commands;
 public:
     Inventory();
     ~Inventory();

@@ -8,7 +8,6 @@
 class Classics :
     public Movies
 {
-    friend class Commands;
 	friend ostream& operator <<(ostream& outStream, const Classics &obj);
 public:
 	bool operator<(const Classics &obj);

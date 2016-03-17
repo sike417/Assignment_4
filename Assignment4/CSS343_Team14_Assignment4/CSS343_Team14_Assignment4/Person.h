@@ -10,14 +10,5 @@ struct Person
     string firstName;
     string lastName;
 };
-
-class People
-{
-    friend class Commands;
-public:
-    People();
-    ~People();
-};
-
 #endif
 

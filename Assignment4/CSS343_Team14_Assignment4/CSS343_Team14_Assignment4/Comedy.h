@@ -3,7 +3,6 @@
 class Comedy :
     public Movies
 {
-    friend class Commands;
 	friend ostream& operator <<(ostream& outStream, const Comedy &obj);
 
 public:
