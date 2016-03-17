@@ -7,6 +7,7 @@ Customers::Customers()
 
 Customers::Customers(int id)
 {
+    this->id = id;
 }
 
 

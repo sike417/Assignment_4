@@ -30,7 +30,9 @@ private:
         bucketType info;
         bucket()
         {
-
+            info = EMPTY;
+            itemKey = 0;
+            element = NULL;
         }
         ~bucket()
         {
@@ -43,10 +45,8 @@ private:
     float loadFactor;
     int collisions;
 
-    bool isActive(int position) const;      //checks if a given bucket is currently being used.
     int hashFunction(const key &val) const;            //hash function
     int secondHashFunction(const key &val);
-    int findlocal (const key &val, const object &obj) const;       //finds the location of an object
     int findNextPrime(int &current) const;    //finds the next prime number that comes after the current inputted number
     bool isPrime(const int &num);
     void rehash(int num);                          //rehashes the hash table with an expanded size
@@ -56,8 +56,6 @@ template<class key, class object>
 HashTable<key, object>::HashTable()
 {
     empty();
-    bucket newBucket;
-    table.push_back(newBucket);
 }
 
 template<class key, class object>
@@ -85,7 +83,10 @@ inline void HashTable<key, object>::empty()
     for (int i = 0; i < table.size(); i++)
     {
         table[i].info = EMPTY;
+        table[i].element = NULL;
+        table[i].itemKey = 0;
     }
+    table.resize(STARTINGSIZE);
 }
 
 template<class key, class object>
@@ -106,7 +107,7 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
         table[elementNum].element = obj;
         table[elementNum].itemKey = val;
         currentSize += 1;
-        loadFactor = currentSize / table.size();
+        loadFactor = static_cast<float>(currentSize) / table.size();
 
         if (loadFactor > .5)
             rehash(table.size() * 2);
