@@ -106,7 +106,6 @@ void Store::LoadCustomersFromFile(ifstream & infile)
 			Customers cust(id);
 			cust.setName(fName, lName);
 			customers.insert(id, cust);
-      cust;
 		}
 	}
 }

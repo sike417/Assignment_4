@@ -46,7 +46,7 @@ private:
     int collisions;
 
     int hashFunction(const key &val) const;            //hash function
-    int secondHashFunction(const key &val);
+    int secondHashFunction(const key &val) const;
     int findNextPrime(int &current) const;    //finds the next prime number that comes after the current inputted number
     bool isPrime(const int &num);
     void rehash(int num);                          //rehashes the hash table with an expanded size
@@ -67,12 +67,33 @@ HashTable<key, object>::~HashTable()
 template<class key, class object>
 inline bool HashTable<key, object>::contains(const key & val) const
 {
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].itemKey == val)
+        {
+            return true;
+        }
+        elementNum = secondHashFunction(val);
+    }
+
     return false;
 }
 
 template<class key, class object>
 inline bool HashTable<key, object>::contains(const key & val, const object & obj) const
 {
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].element == obj)
+        {
+            return true;
+        }
+        elementNum = secondHashFunction(val)
+    }
     return false;
 }
 
@@ -95,7 +116,7 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
     int elementNum = hashFunction(val);
     bucket tempStorage = table[elementNum];
 
-    while (tempStorage.info != EMPTY ||tempStorage.info != DELETED && tempStorage.element != obj)
+    while ((tempStorage.info != EMPTY || tempStorage.info != DELETED) && tempStorage.element != obj)
     {
         collisions += 1;
         elementNum = secondHashFunction(val);
@@ -106,6 +127,7 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
         table[elementNum].info = ACTIVE;
         table[elementNum].element = obj;
         table[elementNum].itemKey = val;
+
         currentSize += 1;
         loadFactor = static_cast<float>(currentSize) / table.size();
 
@@ -127,7 +149,7 @@ inline int HashTable<key, object>::hashFunction(const key & val) const
 }
 
 template<class key, class object>
-inline int HashTable<key, object>::secondHashFunction(const key & val)
+inline int HashTable<key, object>::secondHashFunction(const key & val) const
 {
     return (hashFunction(val) + collisions * (7 - (val % 7)));
 }
@@ -168,5 +190,4 @@ inline bool HashTable<key, object>::isPrime(const int & num)
 template<class key, class object>
 inline void HashTable<key, object>::rehash(int num)
 {
-    
 }
