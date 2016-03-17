@@ -13,8 +13,12 @@ Movies::~Movies()
 
 bool Movies::addStock(const int & num)
 {
-	currentStock += num;
-	return true;
+    if (currentStock >= initialStock)
+    {
+        currentStock += num;
+        return true;
+    }
+    return false;
 }
 
 bool Movies::removeStock(const int & num)
