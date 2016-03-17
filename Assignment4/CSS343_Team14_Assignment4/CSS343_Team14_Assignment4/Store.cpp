@@ -426,7 +426,6 @@ bool Store::executeDramaReturn(const int & id, const Person & director, const st
 
     if (exists = true)
     {
-
     }
     else
     {
@@ -441,7 +440,7 @@ bool Store::executeComedyReturn(const int & id, const string & title, const int 
 
     if (exists = true)
     {
-
+       // exists = customer.borrowed.findComedy(title, year);
     }
     else
     {
@@ -456,7 +455,12 @@ bool Store::executeClassicReturn(const int & id, const int month, const int year
 
     if (exists = true)
     {
+        //exists = customer.borrowed.findClassic(month, year, majorActor);
 
+        if (exists == true)
+        {
+            
+        }
     }
     else
     {
