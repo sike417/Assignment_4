@@ -52,3 +52,8 @@ Person Customers::getName()
 {
 	return this->name;
 }
+
+void Customers::displayHistory()
+{
+    cout << history;
+}

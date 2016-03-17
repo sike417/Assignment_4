@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+
 using namespace std;
 const int STARTINGSIZE = 17;
 
@@ -15,6 +16,7 @@ public:
 
     bool contains(const key &val);
     bool contains(const key &val, const object &obj);
+    bool retrieve(const key &val, object &);
     void empty();
     bool insert(const key &val, const object &obj);
     bool remove(const key &val, const object & obj);
@@ -98,6 +100,26 @@ inline bool HashTable<key, object>::contains(const key & val, const object & obj
         }
         collisions += 1;
         elementNum = secondHashFunction(val)
+    }
+    collisions = 0;
+    return false;
+}
+
+template<class key, class object>
+inline bool HashTable<key, object>::retrieve(const key & val, object &customer)
+{
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].itemKey == val)
+        {
+            collisions = 0;
+            customer = table[elementNum].element;
+            return true;
+        }
+        collisions += 1;
+        elementNum = secondHashFunction(val);
     }
     collisions = 0;
     return false;
