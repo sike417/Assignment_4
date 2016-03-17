@@ -1,5 +1,6 @@
 #include "Comedy.h"
 
+
 Comedy::Comedy()
 {
     type = 'F';
@@ -16,5 +17,51 @@ ostream& operator <<(ostream& outStream, const Comedy &obj)
 		<< obj.director.lastName << ", " << obj.title << ", " << obj.yearReleased;
 	return outStream;
 
+}
+
+bool Comedy::operator<(const Comedy & obj)
+{
+	if (this->title == obj.title)
+	{
+		if (this->yearReleased < obj.yearReleased)
+		{
+			return true;
+		}
+	}
+
+	else if (this->title < obj.title)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Comedy::operator>(const Comedy & obj)
+{
+	if (this->title == obj.title)
+	{
+		if (this->yearReleased > obj.yearReleased)
+		{
+			return true;
+		}
+	}
+
+	else if (this->title > obj.title)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Comedy::operator==(const Comedy & obj)
+{
+	if (this->title == obj.title && this->yearReleased == obj.yearReleased)
+	{
+		return true;
+	}
+
+	return false;
 }
 

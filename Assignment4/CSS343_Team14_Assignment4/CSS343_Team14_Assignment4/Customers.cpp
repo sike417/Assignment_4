@@ -17,12 +17,24 @@ Customers::~Customers()
 
 bool Customers::operator==(const Customers & obj)
 {
-    return false;
+	if (this->name.firstName == obj.name.firstName && 
+		this->name.lastName == obj.name.lastName && this->id == obj.id)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 bool Customers::operator!=(const Customers & obj)
 {
-    return false;
+	if (this->name.firstName != obj.name.firstName ||
+		this->name.lastName != obj.name.lastName || this->id != obj.id)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void Customers::setName(const string & first, const string & last)

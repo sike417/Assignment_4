@@ -47,7 +47,7 @@ private:
 
     int hashFunction(const key &val) const;            //hash function
     int secondHashFunction(const key &val) const;
-    int findNextPrime(int &current) const;    //finds the next prime number that comes after the current inputted number
+    int findNextPrime(int current);    //finds the next prime number that comes after the current inputted number
     bool isPrime(const int &num);
     void rehash(int num);                          //rehashes the hash table with an expanded size
 };
@@ -155,7 +155,7 @@ inline int HashTable<key, object>::secondHashFunction(const key & val) const
 }
 
 template<class key, class object>
-inline int HashTable<key, object>::findNextPrime(int & current) const
+inline int HashTable<key, object>::findNextPrime(int current)
 {
     while(true)
     {
@@ -168,7 +168,7 @@ inline int HashTable<key, object>::findNextPrime(int & current) const
 }
 
 template<class key, class object>
-inline bool HashTable<key, object>::isPrime(const int & num)
+inline bool HashTable<key, object>::isPrime(const int &num)
 {
 
     if (num == 2 || num == 3)
