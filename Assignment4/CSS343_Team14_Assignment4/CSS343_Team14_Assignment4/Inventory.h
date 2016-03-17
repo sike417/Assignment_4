@@ -23,9 +23,7 @@ using namespace std;
 
 class Inventory
 {
-    friend class Commands;
 	friend ostream& operator <<(ostream& outStream, const Inventory &obj);
-
 public:
     Inventory();
     ~Inventory();

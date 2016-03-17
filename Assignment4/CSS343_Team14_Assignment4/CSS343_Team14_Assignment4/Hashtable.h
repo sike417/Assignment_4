@@ -17,6 +17,7 @@
 #include <iostream>
 #include <vector>
 
+
 using namespace std;
 const int STARTINGSIZE = 17;
 
@@ -27,11 +28,12 @@ public:
     HashTable();
     ~HashTable();
 
-    bool contains(const key &val) const;
-    bool contains(const key &val, const object &obj) const;
+    bool contains(const key &val);
+    bool contains(const key &val, const object &obj);
+    bool retrieve(const key &val, object &);
     void empty();
     bool insert(const key &val, const object &obj);
-    bool remove(const key &val);
+    bool remove(const key &val, const object & obj);
 
     enum bucketType { EMPTY, DELETED, ACTIVE };
 
@@ -62,6 +64,7 @@ private:
     int hashFunction(const key &val) const;            //hash function
     int secondHashFunction(const key &val) const;
     int findNextPrime(int current);    //finds the next prime number that comes after the current inputted number
+    int findVal(const key &val, const object &obj);
     bool isPrime(const int &num);
     void rehash(int num);                          //rehashes the hash table with an expanded size
 };
@@ -81,7 +84,7 @@ HashTable<key, object>::~HashTable()
 }
 
 template<class key, class object>
-inline bool HashTable<key, object>::contains(const key & val) const
+inline bool HashTable<key, object>::contains(const key & val)
 {
     int elementNum = hashFunction(val);
 
@@ -89,16 +92,18 @@ inline bool HashTable<key, object>::contains(const key & val) const
     {
         if (table[elementNum].info == ACTIVE && table[elementNum].itemKey == val)
         {
+            collisions = 0;
             return true;
         }
+        collisions += 1;
         elementNum = secondHashFunction(val);
     }
-
+    collisions = 0;
     return false;
 }
 
 template<class key, class object>
-inline bool HashTable<key, object>::contains(const key & val, const object & obj) const
+inline bool HashTable<key, object>::contains(const key & val, const object & obj)
 {
     int elementNum = hashFunction(val);
 
@@ -106,10 +111,33 @@ inline bool HashTable<key, object>::contains(const key & val, const object & obj
     {
         if (table[elementNum].info == ACTIVE && table[elementNum].element == obj)
         {
+            collisions = 0;
             return true;
         }
+        collisions += 1;
         elementNum = secondHashFunction(val)
     }
+    collisions = 0;
+    return false;
+}
+
+template<class key, class object>
+inline bool HashTable<key, object>::retrieve(const key & val, object &customer)
+{
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].itemKey == val)
+        {
+            collisions = 0;
+            customer = table[elementNum].element;
+            return true;
+        }
+        collisions += 1;
+        elementNum = secondHashFunction(val);
+    }
+    collisions = 0;
     return false;
 }
 
@@ -132,10 +160,11 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
     int elementNum = hashFunction(val);
     bucket tempStorage = table[elementNum];
 
-    while ((tempStorage.info != EMPTY || tempStorage.info != DELETED) && tempStorage.element != obj)
+    while ((tempStorage.info != EMPTY && tempStorage.info != DELETED) && tempStorage.element != obj)
     {
         collisions += 1;
         elementNum = secondHashFunction(val);
+        tempStorage = table[elementNum];
     }
 
     if (tempStorage.info != ACTIVE)//assume object is not in hash table
@@ -154,7 +183,23 @@ inline bool HashTable<key, object>::insert(const key & val, const object & obj)
     }
     else
     {
+        collisions = 0;
         return false;
+    }
+}
+
+template<class key, class object>
+inline bool HashTable<key, object>::remove(const key & val, const object & obj)
+{
+    int elementNumber = findVal(val, obj);
+
+    if (elementNumber == -1 || elementNumber >= table.size())
+        return false;
+    else
+    {
+        currentSize -= 1;
+        loadFactor = static_cast<float>(currentSize) / table.size();
+        table[elementNumber].info = DELETED;
     }
 }
 
@@ -181,6 +226,25 @@ inline int HashTable<key, object>::findNextPrime(int current)
             continue;
     }
     return current;
+}
+
+template<class key, class object>
+inline int HashTable<key, object>::findVal(const key & val, const object & obj)
+{
+    int elementNum = hashFunction(val);
+
+    while ((table[elementNum].info == ACTIVE || table[elementNum].info == DELETED))
+    {
+        if (table[elementNum].info == ACTIVE && table[elementNum].element == obj)
+        {
+            collisions = 0;
+            return elementNum;
+        }
+        collisions += 1;
+        elementNum = secondHashFunction(val)
+    }
+    collisions = 0;
+    return -1;
 }
 
 template<class key, class object>
@@ -216,5 +280,14 @@ inline void HashTable<key, object>::rehash(int num)
         table[i].info = EMPTY;
         table[i].element = NULL;
         table[i].itemKey = 0;
+    }
+
+    currentSize = 0;
+    loadFactor = 0;
+
+    for (int i = 0; i < oldTable.size(); i++)
+    {
+        if (oldTable[i].info == ACTIVE)
+            insert(oldTable[i].itemKey, oldTable[i].element);
     }
 }

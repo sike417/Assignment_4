@@ -21,7 +21,6 @@
 using namespace std;
 class History
 {
-    friend class Commands;
 public:
     History();
     ~History();

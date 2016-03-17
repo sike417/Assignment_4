@@ -98,7 +98,7 @@ void Store::LoadMovieFromFile(ifstream & infile)
 void Store::LoadCustomersFromFile(ifstream & infile)
 {
 	string idstr, fName, lName;
-	while (infile >> idstr >> fName >> lName)
+	while (infile >> idstr >> lName >> fName)
 	{
 		int id = stoi(idstr);
 		if(customers.contains(id) == false)
@@ -112,6 +112,34 @@ void Store::LoadCustomersFromFile(ifstream & infile)
 
 void Store::LoadTransactionsFromFile(ifstream & infile)
 {
+    string typeOfTransaction;
+
+    while (infile >> typeOfTransaction)
+    {
+        if (infile.eof())
+            break;
+        if (typeOfTransaction == "I")
+            displayInventory();
+        else if (typeOfTransaction == "B")
+        {
+            readBorrow(infile);
+        }
+        else if (typeOfTransaction == "R")
+        {
+            readBorrow(infile);
+        }
+        else if (typeOfTransaction == "H")
+        {
+            int id;
+            infile >> id;
+
+            displayHistory(id);
+        }
+        else
+        {
+            getline(infile, typeOfTransaction); //reads in and dismisses the corresponding line.
+        }
+    }
 }
 
 void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
@@ -226,4 +254,235 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
 
     infile >> intData;
     drama.setReleaseYear(intData);
+}
+
+void Store::readReturn(ifstream & infile)
+{
+    int id;
+    string mediaType, movieType;
+
+    infile >> id >> mediaType >> movieType;
+
+    if (movieType == "C")
+    {
+        //5000 D C 3 1971 Ruth Gordon
+        int month, year;
+        Person majorActor;
+
+        infile >> month >> year >> majorActor.firstName >> majorActor.lastName;
+        executeClassicReturn(id, month, year, majorActor);
+    }
+    else if (movieType == "F")
+    {
+        //Sleepless in Seattle, 1993
+        string data, title = "";
+        int year;
+
+        infile >> data;
+
+        while (data[data.size() - 1] != ',')
+        {
+            title.append(data);
+            infile >> data;
+        }
+        data.pop_back();
+        title.append(data);
+
+        infile >> year;
+        executeComedyReturn(id, title, year);
+    }
+    else if (movieType == "D")
+    {
+        //Barry Levinson, Good Morning Vietnam,
+        Person director;
+        string data, title;
+
+        infile >> director.firstName >> director.lastName;
+        infile >> data;
+
+        while (data[data.size() - 1] != ',')
+        {
+            title.append(data);
+            infile >> data;
+        }
+        data.pop_back();
+        title.append(data);
+        executeDramaReturn(id, director, title);
+    }
+    else
+    {
+        getline(infile, mediaType);
+    }
+}
+
+void Store::readBorrow(ifstream & infile)
+{
+    int id;
+    string mediaType, movieType;
+
+    infile >> id >> mediaType >> movieType;
+
+    if (movieType == "C")
+    {
+        //5000 D C 3 1971 Ruth Gordon
+        int month, year;
+        Person majorActor;
+
+        infile >> month >> year >> majorActor.firstName >> majorActor.lastName;
+        executeClassicBorrow(id, month, year, majorActor);
+    }
+    else if (movieType == "F")
+    {
+        //Sleepless in Seattle, 1993
+        string data, title = "";
+        int year;
+
+        infile >> data;
+
+        while (data[data.size() - 1] != ',')
+        {
+            title.append(data);
+            infile >> data;
+        }
+        data.pop_back();
+        title.append(data);
+
+        infile >> year;
+        executeComedyBorrow(id, title, year);
+    }
+    else if (movieType == "D")
+    {
+        //Barry Levinson, Good Morning Vietnam,
+        Person director;
+        string data, title;
+
+        infile >> director.firstName >> director.lastName;
+        infile >> data;
+
+        while (data[data.size() - 1] != ',')
+        {
+            title.append(data);
+            infile >> data;
+        }
+        data.pop_back();
+        title.append(data);
+        executeDramaBorrow(id, director, title);
+    }
+    else
+    {
+        getline(infile, mediaType);
+    }
+}
+
+bool Store::executeDramaBorrow(const int id, const Person & director, const string & title)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Store::executeComedyBorrow(const int & id, const string & title, const int year)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Store::executeClassicBorrow(const int & id, const int month, const int year, Person majorActor)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Store::executeDramaReturn(const int & id, const Person & director, const string & title)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Store::executeComedyReturn(const int & id, const string & title, const int year)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Store::executeClassicReturn(const int & id, const int month, const int year, Person majorActor)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+
+    }
+    else
+    {
+        return false;
+    }
+
+    return false;
+}
+
+bool Store::displayHistory(const int id)
+{
+    Customers customer;
+    bool exists = customers.retrieve(id, customer);
+
+    if (exists = true)
+    {
+        customer.displayHistory();
+    }
+    else
+    {
+        //customer not found.
+    }
+    return false;
+}
+
+void Store::displayInventory()
+{
+    //cout >> storeInventory;
 }

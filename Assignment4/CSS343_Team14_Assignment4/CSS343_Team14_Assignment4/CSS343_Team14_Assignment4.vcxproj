@@ -148,7 +148,6 @@
   <ItemGroup>
     <ClInclude Include="Classics.h" />
     <ClInclude Include="Comedy.h" />
-    <ClInclude Include="Commands.h" />
     <ClInclude Include="Customers.h" />
     <ClInclude Include="Drama.h" />
     <ClInclude Include="HashTable.h" />
@@ -161,7 +160,6 @@
   <ItemGroup>
     <ClCompile Include="Classics.cpp" />
     <ClCompile Include="Comedy.cpp" />
-    <ClCompile Include="Commands.cpp" />
     <ClCompile Include="Customers.cpp" />
     <ClCompile Include="Drama.cpp" />
     <ClCompile Include="History.cpp" />

@@ -4,7 +4,6 @@
 #pragma once
 #include <fstream>
 #include <iostream>
-#include "Commands.h"
 #include "Inventory.h"
 #include "HashTable.h"
 #include "Customers.h"
@@ -13,7 +12,6 @@ using namespace std;
 class Store
 {
 public:
-    friend class Commands;
     Store();
     Store(const string &movieListFileName);
     Store(ifstream &movieList);
@@ -33,6 +31,22 @@ private:
     void retrieveClassic(ifstream &infile, Classics &classic, string &data);
     void retrieveComedy(ifstream &infile, Comedy &comedy, string &data);
     void retrieveDrama(ifstream &infile, Drama &drama, string &data);
+
+    //read methods
+    void readReturn(ifstream &infile);
+    void readBorrow(ifstream &infile);
+
+    //action methods
+    bool executeDramaBorrow(const int id, const Person &director, const string &title);
+    bool executeComedyBorrow(const int &id, const string &title, const int year);
+    bool executeClassicBorrow(const int &id, const int month, const int year, Person majorActor);
+
+    bool executeDramaReturn(const int &id, const Person &director, const string &title);
+    bool executeComedyReturn(const int &id, const string &title, const int year);
+    bool executeClassicReturn(const int &id, const int month, const int year, Person majorActor);
+
+    bool displayHistory(const int id);
+    void displayInventory();
 };
 
 #endif

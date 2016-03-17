@@ -15,16 +15,12 @@
 #define MOVIES_H
 
 #pragma once
-#include "Commands.h"
 #include "Person.h"
 #include <string>
 using namespace std;
 
 class Movies
 {
-    friend class Commands;
-
-
 
 public:
     Movies();

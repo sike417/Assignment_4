@@ -1,23 +1,4 @@
-﻿Build started 3/16/2016 10:39:03 PM.
-     1>Project "C:\Users\Eduardo\Documents\Assignment_4\Assignment4\CSS343_Team14_Assignment4\CSS343_Team14_Assignment4\CSS343_Team14_Assignment4.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt History.cpp
-         History.cpp
-     1>c:\users\eduardo\documents\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\history.cpp(6): warning C4018: '<': signed/unsigned mismatch
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Eduardo\Documents\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Eduardo\Documents\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Eduardo\Documents\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.lib" /MACHINE:X86 Debug\Classics.obj
-         Debug\Comedy.obj
-         Debug\Commands.obj
-         Debug\Customers.obj
-         Debug\Drama.obj
-         Debug\History.obj
-         Debug\Inventory.obj
-         Debug\Movies.obj
-         Debug\Main.obj
-         Debug\Store.obj
-         CSS343_Team14_Assignment4.vcxproj -> C:\Users\Eduardo\Documents\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe
-     1>Done Building Project "C:\Users\Eduardo\Documents\Assignment_4\Assignment4\CSS343_Team14_Assignment4\CSS343_Team14_Assignment4\CSS343_Team14_Assignment4.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:02.27
+﻿  History.cpp
+c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\history.cpp(6): warning C4018: '<': signed/unsigned mismatch
+  LINK : C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe not found or not built by the last incremental link; performing full link
+  CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe
