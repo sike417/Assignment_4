@@ -11,7 +11,11 @@ Store::Store()
 //assumes that the user only inputs the file name not the extentsion
 Store::Store(const string &movieListFileName)
 {
-    ifstream infile(movieListFileName + ".txt");
+    string fileName = movieListFileName;
+    string txt = ".txt";
+    fileName += txt;
+
+    ifstream infile(fileName.c_str());
     LoadMovieFromFile(infile);
     infile.close();
 }
@@ -29,11 +33,17 @@ Store::Store(ifstream & movieList, ifstream & customerList)
 
 Store::Store(const string & movieListFileName, const string & customerListFileName)
 {
-    ifstream infile(movieListFileName + ".txt");
+    string txt = ".txt";
+    string fileName = movieListFileName;
+    fileName += txt;
+
+    ifstream infile(fileName.c_str());
     LoadMovieFromFile(infile);
     infile.close();
+    fileName = customerListFileName;
 
-    infile.open(customerListFileName + ".txt");
+    fileName += txt;
+    infile.open(fileName.c_str());
     LoadCustomersFromFile(infile);
     infile.close();
 }
@@ -47,15 +57,23 @@ Store::Store(ifstream & movieList, ifstream & customerList, ifstream & transacti
 
 Store::Store(const string & movieListFileName, const string & customerListFileName, const string & transactionListFileName)
 {
-    ifstream infile(movieListFileName + ".txt");
+    string txt = ".txt";
+    string fileName = movieListFileName;
+    fileName += txt;
+
+    ifstream infile(fileName.c_str());
     LoadMovieFromFile(infile);
     infile.close();
+    fileName = customerListFileName;
 
-    infile.open(customerListFileName + ".txt");
+    fileName += txt;
+    infile.open(fileName.c_str());
     LoadCustomersFromFile(infile);
     infile.close();
 
-    infile.open(transactionListFileName + ".txt");
+    fileName = transactionListFileName;
+    fileName += txt;
+    infile.open(fileName.c_str());
     LoadTransactionsFromFile(infile);
     infile.close();
 }
@@ -71,7 +89,7 @@ void Store::LoadMovieFromFile(ifstream & infile)
 
     while (infile >> data)
     {
-        data.pop_back(); //removes the trailing comma
+        data.erase(data.size() - 1, 1); //removes the trailing comma
 
         if (data == "C")
         {
@@ -98,10 +116,12 @@ void Store::LoadMovieFromFile(ifstream & infile)
 
 void Store::LoadCustomersFromFile(ifstream & infile)
 {
-	string idstr, fName, lName;
-	while (infile >> idstr >> lName >> fName)
+  int id;
+  string fName, lName;
+	while (infile >> id >> lName >> fName)
 	{
-		int id = stoi(idstr);
+      if (infile.eof())
+          return;
 		if(customers.contains(id) == false)
 		{
 			Customers cust(id);
@@ -159,12 +179,12 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
     {
         director.lastName = director.middleName;
         director.middleName = "";
-        director.lastName.pop_back();
+        director.lastName.erase(director.lastName.size() - 1, 1);
     }
     else
     {
         infile >> director.lastName;
-        director.lastName.pop_back(); //removes trailing comma
+        director.lastName.erase(director.lastName.size() - 1, 1);
     }
     classic.setDirector(director);
 
@@ -180,7 +200,7 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
 
         if (title[title.size() - 1] == ',')
         {
-            title.pop_back();       //removes trailing comma
+            title.erase(title.size() - 1, 1);       //removes trailing comma
             break;
         }
         intData += 1;
@@ -212,12 +232,12 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
     {
         director.lastName = director.middleName;
         director.middleName = "";
-        director.lastName.pop_back();
+        director.lastName.erase(director.lastName.size() - 1, 1);
     }
     else
     {
         infile >> director.lastName;
-        director.lastName.pop_back(); //removes trailing comma
+        director.lastName.erase(director.lastName.size() - 1, 1);
     }
     comedy.setDirector(director);
 
@@ -233,7 +253,7 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
 
         if (title[title.size() - 1] == ',')
         {
-            title.pop_back();       //removes trailing comma
+            title.erase(title.size() - 1, 1);       //removes trailing comma
             break;
         }
         intData += 1;
@@ -259,12 +279,12 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
     {
         director.lastName = director.middleName;
         director.middleName = "";
-        director.lastName.pop_back();
+        director.lastName.erase(director.lastName.size() - 1, 1);
     }
     else
     {
         infile >> director.lastName;
-        director.lastName.pop_back(); //removes trailing comma
+        director.lastName.erase(director.lastName.size() - 1, 1);
     }
     drama.setDirector(director);
 
@@ -280,7 +300,7 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
 
         if (title[title.size() - 1] == ',')
         {
-            title.pop_back();       //removes trailing comma
+            title.erase(title.size() - 1, 1);      //removes trailing comma
             break;
         }
         intData += 1;
@@ -343,7 +363,7 @@ void Store::readReturn(ifstream & infile)
             if (title[title.size() - 1] == ',')
                 break;
         }
-        title.pop_back();
+        title.erase(title.size() - 1, 1);
 
         infile >> year;
         bool test = executeComedyReturn(id, title, year);
@@ -375,12 +395,12 @@ void Store::readReturn(ifstream & infile)
         {
             director.lastName = director.middleName;
             director.middleName = "";
-            director.lastName.pop_back();
+            director.lastName.erase(director.lastName.size() - 1, 1);
         }
         else
         {
             infile >> director.lastName;
-            director.lastName.pop_back(); //removes trailing comma
+            director.lastName.erase(director.lastName.size() - 1, 1);
         }
 
         int count = 0;
@@ -394,7 +414,7 @@ void Store::readReturn(ifstream & infile)
             if (title[title.size() - 1] == ',')
                 break;
         }
-        title.pop_back();
+        title.erase(title.size() - 1, 1);
 
         bool test = executeDramaReturn(id, director, title);
         Customers *customer;
@@ -476,7 +496,7 @@ void Store::readBorrow(ifstream & infile)
             if (title[title.size() - 1] == ',')
                 break;
         }
-        title.pop_back();
+        title.erase(title.size() - 1, 1);
 
         infile >> year;
         bool test = executeComedyBorrow(id, title, year);
@@ -508,12 +528,12 @@ void Store::readBorrow(ifstream & infile)
         {
             director.lastName = director.middleName;
             director.middleName = "";
-            director.lastName.pop_back();
+            director.lastName.erase(director.lastName.size() - 1, 1);
         }
         else
         {
             infile >> director.lastName;
-            director.lastName.pop_back(); //removes trailing comma
+            director.lastName.erase(director.lastName.size() - 1, 1);
         }
 
         int count = 0;
@@ -527,7 +547,7 @@ void Store::readBorrow(ifstream & infile)
             if (title[title.size() - 1] == ',')
                 break;
         }
-        title.pop_back();
+        title.erase(title.size() - 1, 1);
 
         bool test = executeDramaBorrow(id, director, title);
         Customers *customer;
@@ -563,7 +583,7 @@ bool Store::executeDramaBorrow(const int id, const Person & director, const stri
     Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
                 Drama *drama;
                 exists = storeInventory.retrieveDrama(director, title, drama);
@@ -595,7 +615,7 @@ bool Store::executeComedyBorrow(const int & id, const string & title, const int 
     Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
         Comedy *comedy;
         exists = storeInventory.retrieveComedy(title, year, comedy);
@@ -649,6 +669,7 @@ bool Store::executeClassicBorrow(const int & id, const int month, const int year
             return false;
         }
     }
+    return false;
 
 }
 
@@ -749,12 +770,13 @@ bool Store::displayHistory(const int id)
     Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
         customer->displayHistory();
     }
     else
     {
+        cout << "Invalid transaction. No customer with id of " << id << endl;
         //customer not found.
     }
     return false;

@@ -3,6 +3,10 @@
 
 Customers::Customers()
 {
+    id = 0;
+    name.firstName = "";
+    name.middleName = "";
+    name.lastName = "";
 }
 
 Customers::Customers(int id)

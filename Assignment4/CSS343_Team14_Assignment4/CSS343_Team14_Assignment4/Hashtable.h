@@ -48,7 +48,6 @@ private:
         {
             info = EMPTY;
             itemKey = 0;
-            element = NULL;
         }
         ~bucket()
         {
@@ -115,7 +114,7 @@ inline bool HashTable<key, object>::contains(const key & val, const object & obj
             return true;
         }
         collisions += 1;
-        elementNum = secondHashFunction(val)
+        elementNum = secondHashFunction(val);
     }
     collisions = 0;
     return false;
@@ -148,8 +147,6 @@ inline void HashTable<key, object>::empty()
     for (int i = 0; i < table.size(); i++)
     {
         table[i].info = EMPTY;
-        table[i].element = NULL;
-        table[i].itemKey = 0;
     }
     table.resize(STARTINGSIZE);
 }
@@ -241,7 +238,7 @@ inline int HashTable<key, object>::findVal(const key & val, const object & obj)
             return elementNum;
         }
         collisions += 1;
-        elementNum = secondHashFunction(val)
+        elementNum = secondHashFunction(val);
     }
     collisions = 0;
     return -1;
@@ -278,8 +275,7 @@ inline void HashTable<key, object>::rehash(int num)
     for (int i = 0; i < table.size(); i++)
     {
         table[i].info = EMPTY;
-        table[i].element = NULL;
-        table[i].itemKey = 0;
+        //table[i].itemKey = 0;
     }
 
     currentSize = 0;
