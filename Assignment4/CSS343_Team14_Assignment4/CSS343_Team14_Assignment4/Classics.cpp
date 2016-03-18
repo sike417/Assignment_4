@@ -1,5 +1,6 @@
 
 #include "Classics.h"
+#include <sstream>
 
 Classics::Classics()
 {
@@ -13,9 +14,9 @@ Classics::~Classics()
 
 ostream& operator <<(ostream& outStream, const Classics &obj)
 {
-	outStream << "C, " << obj.currentStock << ", " << obj.director.firstName << " "
-		<< obj.director.lastName << ", " << obj.title << ", " << obj.majorActor.firstName
-		<< " " << obj.majorActor.lastName << " " << obj.month << " " << obj.yearReleased;
+	outStream << string("C, ") << static_cast<ostringstream*>(&(ostringstream() << obj.currentStock))->str() << string(", ") << obj.director.firstName << string(" ")
+		<< obj.director.lastName << string(", ") << obj.title << string(", ") << obj.majorActor.firstName
+		<< " " << obj.majorActor.lastName << string(" ") << static_cast<ostringstream*>(&(ostringstream() << obj.month))->str() << string(" ") << static_cast<ostringstream*>(&(ostringstream() << obj.yearReleased))->str();
 	return outStream;
 }
 

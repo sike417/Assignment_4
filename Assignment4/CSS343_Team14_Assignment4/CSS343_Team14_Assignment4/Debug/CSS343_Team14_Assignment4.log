@@ -1,13 +1,4 @@
-﻿  Store.cpp
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(146): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(145): note: while compiling class template member function 'void HashTable<int,Customers>::empty(void)'
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(76): note: see reference to function template instantiation 'void HashTable<int,Customers>::empty(void)' being compiled
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(75): note: while compiling class template member function 'HashTable<int,Customers>::HashTable(void)'
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.cpp(8): note: see reference to function template instantiation 'HashTable<int,Customers>::HashTable(void)' being compiled
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\store.h(30): note: see reference to class template instantiation 'HashTable<int,Customers>' being compiled
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(147): warning C4018: '<': signed/unsigned mismatch
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(275): warning C4018: '<': signed/unsigned mismatch
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(269): note: while compiling class template member function 'void HashTable<int,Customers>::rehash(int)'
-  c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(177): note: see reference to function template instantiation 'void HashTable<int,Customers>::rehash(int)' being compiled
-c:\users\jayse\documents\github\assignment_4\assignment4\css343_team14_assignment4\css343_team14_assignment4\hashtable.h(284): warning C4018: '<': signed/unsigned mismatch
+﻿  Drama.cpp
+  Comedy.cpp
+  Generating Code...
   CSS343_Team14_Assignment4.vcxproj -> C:\Users\jayse\Documents\GitHub\Assignment_4\Assignment4\CSS343_Team14_Assignment4\Debug\CSS343_Team14_Assignment4.exe
