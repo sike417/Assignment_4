@@ -1,4 +1,5 @@
 #include "Drama.h"
+#include <sstream>
 
 
 Drama::Drama()
@@ -12,8 +13,8 @@ Drama::~Drama()
 
 ostream& operator <<(ostream& outStream, const Drama &obj)
 {
-	outStream << "D, " << obj.currentStock << ", " << obj.director.firstName << " "
-		<< obj.director.lastName << ", " << obj.title << ", " << obj.yearReleased;
+	outStream << string("D, ") << static_cast<ostringstream*>(&(ostringstream() << obj.currentStock))->str() << string(", ") << obj.director.firstName << string(" ")
+		<< obj.director.lastName << string(", ") << obj.title << string(", ") << static_cast<ostringstream*>(&(ostringstream() << obj.yearReleased))->str();
 	return outStream;
 
 }

@@ -1,0 +1,9 @@
+// Assumptions: Two movies are considered different if any of their sorting attributes are different
+
+1. Create a store object
+2. At that point you can give it several file names, one for customer, movies, and commands, or you can wait
+and do it later. 
+3. If you chose to wait you can call the read movies from file, read commands from file, and read customers from
+file directly.
+4. There are no other known means of communicating with the store except through files.
+5. The rest should be handled by the program dirrectly.

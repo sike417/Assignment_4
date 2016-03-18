@@ -32,13 +32,15 @@ Inventory::~Inventory()
 {
 }
 
-bool Inventory::addClassic(const Classics & newClassic)
+bool Inventory::addClassic(const Classics &newClassic)
 {
 	for (int i = 0; i < classicList.size(); i++)
 	{
 		if (newClassic == classicList[i])
 		{
-			return false;
+        classicList[i].addInitialStock(newClassic.getCurrentStock());
+        classicList[i].addStock(newClassic.getCurrentStock());
+        return true;
 		}
 	}
 
@@ -75,7 +77,7 @@ bool Inventory::addDrama(const Drama & newDrama)
 
 }
 
-bool Inventory::findClassic(const int & month, const int & year, const Person & majorActor)
+bool Inventory::retrieveClassic(const int & month, const int & year, const Person & majorActor, Classics *&classic)
 {
 	for (int i = 0; i < classicList.size(); i++)
 	{
@@ -83,19 +85,21 @@ bool Inventory::findClassic(const int & month, const int & year, const Person & 
 			&& majorActor.firstName == classicList[i].getMajorActor().firstName
 			&& majorActor.lastName == classicList[i].getMajorActor().lastName)
 		{
-			return true;
+        classic = &classicList[i];
+        return true;
 		}
 	}
 
 	return false;
 }
 
-bool Inventory::findComedy(const string & title, const int & year)
+bool Inventory::retrieveComedy(const string & title, const int & year, Comedy *&comedy)
 {
 	for (int i = 0; i < comedyList.size(); i++)
 	{
 		if (title == comedyList[i].getTitle() && year == comedyList[i].getYearReleased())
 		{
+        comedy = &comedyList[i];
 			return true;
 		}
 	}
@@ -103,7 +107,7 @@ bool Inventory::findComedy(const string & title, const int & year)
 	return false;
 }
 
-bool Inventory::findDrama(const Person & director, const string & title)
+bool Inventory::retrieveDrama(const Person & director, const string & title, Drama *&drama)
 {
 	for (int i = 0; i < dramaList.size(); i++)
 	{
@@ -111,6 +115,7 @@ bool Inventory::findDrama(const Person & director, const string & title)
 			&& director.lastName == dramaList[i].getDirector().lastName
 			&& title == dramaList[i].getTitle())
 		{
+        drama = &dramaList[i];
 			return true;
 		}
 	}

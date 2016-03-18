@@ -1,5 +1,6 @@
 #include "Store.h"
 #include "HashTable.h"
+#include <sstream>
 #include <cstdlib>
 
 
@@ -10,7 +11,11 @@ Store::Store()
 //assumes that the user only inputs the file name not the extentsion
 Store::Store(const string &movieListFileName)
 {
-    ifstream infile(movieListFileName + ".txt");
+    string fileName = movieListFileName;
+    string txt = ".txt";
+    fileName += txt;
+
+    ifstream infile(fileName.c_str());
     LoadMovieFromFile(infile);
     infile.close();
 }
@@ -28,11 +33,17 @@ Store::Store(ifstream & movieList, ifstream & customerList)
 
 Store::Store(const string & movieListFileName, const string & customerListFileName)
 {
-    ifstream infile(movieListFileName + ".txt");
+    string txt = ".txt";
+    string fileName = movieListFileName;
+    fileName += txt;
+
+    ifstream infile(fileName.c_str());
     LoadMovieFromFile(infile);
     infile.close();
+    fileName = customerListFileName;
 
-    infile.open(customerListFileName + ".txt");
+    fileName += txt;
+    infile.open(fileName.c_str());
     LoadCustomersFromFile(infile);
     infile.close();
 }
@@ -46,15 +57,23 @@ Store::Store(ifstream & movieList, ifstream & customerList, ifstream & transacti
 
 Store::Store(const string & movieListFileName, const string & customerListFileName, const string & transactionListFileName)
 {
-    ifstream infile(movieListFileName + ".txt");
+    string txt = ".txt";
+    string fileName = movieListFileName;
+    fileName += txt;
+
+    ifstream infile(fileName.c_str());
     LoadMovieFromFile(infile);
     infile.close();
+    fileName = customerListFileName;
 
-    infile.open(customerListFileName + ".txt");
+    fileName += txt;
+    infile.open(fileName.c_str());
     LoadCustomersFromFile(infile);
     infile.close();
 
-    infile.open(transactionListFileName + ".txt");
+    fileName = transactionListFileName;
+    fileName += txt;
+    infile.open(fileName.c_str());
     LoadTransactionsFromFile(infile);
     infile.close();
 }
@@ -70,7 +89,7 @@ void Store::LoadMovieFromFile(ifstream & infile)
 
     while (infile >> data)
     {
-        data.pop_back(); //removes the trailing comma
+        data.erase(data.size() - 1, 1); //removes the trailing comma
 
         if (data == "C")
         {
@@ -97,10 +116,12 @@ void Store::LoadMovieFromFile(ifstream & infile)
 
 void Store::LoadCustomersFromFile(ifstream & infile)
 {
-	string idstr, fName, lName;
-	while (infile >> idstr >> lName >> fName)
+  int id;
+  string fName, lName;
+	while (infile >> id >> lName >> fName)
 	{
-		int id = stoi(idstr);
+      if (infile.eof())
+          return;
 		if(customers.contains(id) == false)
 		{
 			Customers cust(id);
@@ -126,7 +147,7 @@ void Store::LoadTransactionsFromFile(ifstream & infile)
         }
         else if (typeOfTransaction == "R")
         {
-            readBorrow(infile);
+            readReturn(infile);
         }
         else if (typeOfTransaction == "H")
         {
@@ -152,8 +173,19 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
     classic.setStock(intData);
     infile >> data;             //grabs and dismisses the remaining comma
 
-    infile >> director.firstName >> director.lastName;
-    director.lastName.pop_back(); //removes trailing comma
+    infile >> director.firstName >> director.middleName;
+
+    if(director.middleName[director.middleName.size() - 1] == ',')
+    {
+        director.lastName = director.middleName;
+        director.middleName = "";
+        director.lastName.erase(director.lastName.size() - 1, 1);
+    }
+    else
+    {
+        infile >> director.lastName;
+        director.lastName.erase(director.lastName.size() - 1, 1);
+    }
     classic.setDirector(director);
 
     intData = 0;
@@ -168,20 +200,22 @@ void Store::retrieveClassic(ifstream & infile, Classics & classic, string &data)
 
         if (title[title.size() - 1] == ',')
         {
-            title.pop_back();       //removes trailing comma
+            title.erase(title.size() - 1, 1);       //removes trailing comma
             break;
         }
         intData += 1;
     }
     classic.setTitle(title);
 
-    infile >> director.firstName >> director.lastName;  //reuse director for major actor.
+    infile >> director.firstName >> director.lastName;      //reuse director for majoractor
+
     classic.setMajorActor(director);
 
     infile >> intData;
     classic.setMonth(intData);
     infile >> intData;
     classic.setReleaseYear(intData);
+    storeInventory.addClassic(classic);
 }
 
 void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
@@ -193,8 +227,18 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
     infile >> intData >> data;
     comedy.setStock(intData);
 
-    infile >> director.firstName >> director.lastName;
-    director.lastName.pop_back();
+    infile >> director.firstName >> director.middleName;
+    if (director.middleName[director.middleName.size() - 1] == ',')
+    {
+        director.lastName = director.middleName;
+        director.middleName = "";
+        director.lastName.erase(director.lastName.size() - 1, 1);
+    }
+    else
+    {
+        infile >> director.lastName;
+        director.lastName.erase(director.lastName.size() - 1, 1);
+    }
     comedy.setDirector(director);
 
     intData = 0;
@@ -209,7 +253,7 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
 
         if (title[title.size() - 1] == ',')
         {
-            title.pop_back();       //removes trailing comma
+            title.erase(title.size() - 1, 1);       //removes trailing comma
             break;
         }
         intData += 1;
@@ -218,6 +262,7 @@ void Store::retrieveComedy(ifstream & infile, Comedy & comedy, string & data)
 
     infile >> intData;
     comedy.setReleaseYear(intData);
+    storeInventory.addComedy(comedy);
 }
 
 void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
@@ -229,8 +274,18 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
     infile >> intData >> data;
     drama.setStock(intData);
 
-    infile >> director.firstName >> director.lastName;
-    director.lastName.pop_back();
+    infile >> director.firstName >> director.middleName;
+    if (director.middleName[director.middleName.size() - 1] == ',')
+    {
+        director.lastName = director.middleName;
+        director.middleName = "";
+        director.lastName.erase(director.lastName.size() - 1, 1);
+    }
+    else
+    {
+        infile >> director.lastName;
+        director.lastName.erase(director.lastName.size() - 1, 1);
+    }
     drama.setDirector(director);
 
     intData = 0;
@@ -245,7 +300,7 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
 
         if (title[title.size() - 1] == ',')
         {
-            title.pop_back();       //removes trailing comma
+            title.erase(title.size() - 1, 1);      //removes trailing comma
             break;
         }
         intData += 1;
@@ -254,6 +309,7 @@ void Store::retrieveDrama(ifstream & infile, Drama & drama, string & data)
 
     infile >> intData;
     drama.setReleaseYear(intData);
+    storeInventory.addDrama(drama);
 }
 
 void Store::readReturn(ifstream & infile)
@@ -270,7 +326,25 @@ void Store::readReturn(ifstream & infile)
         Person majorActor;
 
         infile >> month >> year >> majorActor.firstName >> majorActor.lastName;
-        executeClassicReturn(id, month, year, majorActor);
+        bool test = executeClassicReturn(id, month, year, majorActor);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+        if (test == false)
+        {
+            string transaction = "Invalid Borrow transaction";
+            customer->addTransaction(transaction);
+        }
+
+        string transaction = "R " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + static_cast<ostringstream*>(&(ostringstream() << month))->str();
+        transaction += " " + static_cast<ostringstream*>(&(ostringstream() << year))->str()
+            + " " + majorActor.firstName + " " + majorActor.lastName;
+
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "F")
     {
@@ -278,18 +352,37 @@ void Store::readReturn(ifstream & infile)
         string data, title = "";
         int year;
 
-        infile >> data;
 
-        while (data[data.size() - 1] != ',')
+        int count = 0;
+        while (infile >> data)
         {
+            if (count != 0)
+                title.append(" ");
             title.append(data);
-            infile >> data;
+            count += 1;
+            if (title[title.size() - 1] == ',')
+                break;
         }
-        data.pop_back();
-        title.append(data);
+        title.erase(title.size() - 1, 1);
 
         infile >> year;
-        executeComedyReturn(id, title, year);
+        bool test = executeComedyReturn(id, title, year);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+        if (test == false)
+        {
+            string transaction = "Invalid Borrow transaction";
+            customer->addTransaction(transaction);
+        }
+
+        string transaction = "R " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + title + ", "
+            + static_cast<ostringstream*>(&(ostringstream() << year))->str();
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "D")
     {
@@ -297,17 +390,52 @@ void Store::readReturn(ifstream & infile)
         Person director;
         string data, title;
 
-        infile >> director.firstName >> director.lastName;
-        infile >> data;
-
-        while (data[data.size() - 1] != ',')
+        infile >> director.firstName >> director.middleName;
+        if (director.middleName[director.middleName.size() - 1] == ',')
         {
-            title.append(data);
-            infile >> data;
+            director.lastName = director.middleName;
+            director.middleName = "";
+            director.lastName.erase(director.lastName.size() - 1, 1);
         }
-        data.pop_back();
-        title.append(data);
-        executeDramaReturn(id, director, title);
+        else
+        {
+            infile >> director.lastName;
+            director.lastName.erase(director.lastName.size() - 1, 1);
+        }
+
+        int count = 0;
+        while (infile >> data)
+        {
+            if (count != 0)
+                title.append(" ");
+            title.append(data);
+            count += 1;
+
+            if (title[title.size() - 1] == ',')
+                break;
+        }
+        title.erase(title.size() - 1, 1);
+
+        bool test = executeDramaReturn(id, director, title);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+        if (test == false)
+        {
+            string transaction = "Invalid Borrow transaction";
+            customer->addTransaction(transaction);
+        }
+
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + transaction + " " + mediaType + " "
+            + movieType + " " + director.firstName + " ";
+        if (director.middleName != "")
+            transaction += director.middleName + " ";
+        transaction += director.lastName + ", " + title + ",";
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else
     {
@@ -329,7 +457,26 @@ void Store::readBorrow(ifstream & infile)
         Person majorActor;
 
         infile >> month >> year >> majorActor.firstName >> majorActor.lastName;
-        executeClassicBorrow(id, month, year, majorActor);
+        bool test = executeClassicBorrow(id, month, year, majorActor);
+
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+        if (test == false)
+        {
+            string transaction = "Invalid Borrow transaction";
+            customer->addTransaction(transaction);
+        }
+
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + static_cast<ostringstream*>(&(ostringstream() << month))->str();
+        transaction += " " + static_cast<ostringstream*>(&(ostringstream() << year))->str()
+            + " " + majorActor.firstName + " " + majorActor.lastName;
+
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "F")
     {
@@ -337,18 +484,38 @@ void Store::readBorrow(ifstream & infile)
         string data, title = "";
         int year;
 
-        infile >> data;
+        int count = 0;
 
-        while (data[data.size() - 1] != ',')
+        while (infile >> data)
         {
+            if (count != 0)
+                title.append(" ");
             title.append(data);
-            infile >> data;
+            count += 1;
+
+            if (title[title.size() - 1] == ',')
+                break;
         }
-        data.pop_back();
-        title.append(data);
+        title.erase(title.size() - 1, 1);
 
         infile >> year;
-        executeComedyBorrow(id, title, year);
+        bool test = executeComedyBorrow(id, title, year);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+        if (test == false)
+        {
+            string transaction = "Invalid Borrow transaction";
+            customer->addTransaction(transaction);
+        }
+
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + title + ", "
+            + static_cast<ostringstream*>(&(ostringstream() << year))->str();
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else if (movieType == "D")
     {
@@ -356,17 +523,54 @@ void Store::readBorrow(ifstream & infile)
         Person director;
         string data, title;
 
-        infile >> director.firstName >> director.lastName;
-        infile >> data;
-
-        while (data[data.size() - 1] != ',')
+        infile >> director.firstName >> director.middleName;
+        if (director.middleName[director.middleName.size() - 1] == ',')
         {
-            title.append(data);
-            infile >> data;
+            director.lastName = director.middleName;
+            director.middleName = "";
+            director.lastName.erase(director.lastName.size() - 1, 1);
         }
-        data.pop_back();
-        title.append(data);
-        executeDramaBorrow(id, director, title);
+        else
+        {
+            infile >> director.lastName;
+            director.lastName.erase(director.lastName.size() - 1, 1);
+        }
+
+        int count = 0;
+        while (infile >> data)
+        {
+            if (count != 0)
+                title.append(" ");
+            title.append(data);
+            count += 1;
+
+            if (title[title.size() - 1] == ',')
+                break;
+        }
+        title.erase(title.size() - 1, 1);
+
+        bool test = executeDramaBorrow(id, director, title);
+        Customers *customer;
+        bool found = customers.retrieve(id, customer);
+
+        if (found == false)
+            return;
+        if (test == false)
+        {
+            string transaction = "Invalid Borrow transaction";
+            customer->addTransaction(transaction);
+        }
+
+        //constructs the transaction from the scattered pieces.
+        string transaction = "B " + static_cast<ostringstream*>(&(ostringstream() << id))->str();
+        transaction += " " + mediaType + " " + movieType + " " + director.firstName
+            + " ";
+        if (director.middleName != "")
+            transaction += director.middleName + " ";
+        transaction += director.lastName + ", " + title + ",";
+
+        customer->addTransaction(transaction);
+        customer = NULL;
     }
     else
     {
@@ -376,12 +580,29 @@ void Store::readBorrow(ifstream & infile)
 
 bool Store::executeDramaBorrow(const int id, const Person & director, const string & title)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
+                Drama *drama;
+                exists = storeInventory.retrieveDrama(director, title, drama);
 
+        if (exists == true)
+        {
+            if (drama->getCurrentStock() <= 0)
+                return false;
+            Drama newDrama(*drama);
+            newDrama.removeInitialStock(drama->getInitialStock());
+            newDrama.removeStock(drama->getCurrentStock());
+            newDrama.addInitialStock(1), newDrama.addStock(1);
+            customer->borrowed.addDrama(newDrama);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -391,12 +612,30 @@ bool Store::executeDramaBorrow(const int id, const Person & director, const stri
 
 bool Store::executeComedyBorrow(const int & id, const string & title, const int year)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
+        Comedy *comedy;
+        exists = storeInventory.retrieveComedy(title, year, comedy);
 
+        if (exists == true)
+        {
+            if (comedy->getCurrentStock() <= 0)
+                return false;
+            Comedy newComedy(*comedy);
+            newComedy.removeInitialStock(comedy->getInitialStock());
+            newComedy.removeStock(comedy->getCurrentStock());
+            newComedy.addInitialStock(1), newComedy.addStock(1);
+            customer->borrowed.addComedy(newComedy);
+            comedy->removeStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -406,27 +645,57 @@ bool Store::executeComedyBorrow(const int & id, const string & title, const int 
 
 bool Store::executeClassicBorrow(const int & id, const int month, const int year, Person majorActor)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
+        Classics *classic;
+        exists = storeInventory.retrieveClassic(month, year, majorActor, classic);
 
+        if (exists == true)
+        {
+            if (classic->getCurrentStock() <= 0)
+                return false;
+            Classics newClassic(*classic);
+            newClassic.removeInitialStock(classic->getInitialStock());
+            newClassic.removeStock(classic->getCurrentStock());
+            newClassic.addInitialStock(1), newClassic.addStock(1);
+            customer->borrowed.addClassic(newClassic);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    else
-    {
-        return false;
-    }
+    return false;
+
 }
 
 bool Store::executeDramaReturn(const int & id, const Person & director, const string & title)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
+        Drama *drama;
+        exists = customer->borrowed.retrieveDrama(director, title, drama);
 
+        if (exists == true)
+        {
+            if (drama->getCurrentStock() <= 0)
+                return false;
+            drama->removeStock(1);
+            storeInventory.retrieveDrama(director, title, drama);
+            drama->addStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -436,12 +705,27 @@ bool Store::executeDramaReturn(const int & id, const Person & director, const st
 
 bool Store::executeComedyReturn(const int & id, const string & title, const int year)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
+        Comedy *comedy;
+        exists = customer->borrowed.retrieveComedy(title, year, comedy);
 
+        if (exists == true)
+        {
+            if (comedy->getCurrentStock() <= 0)
+                return false;
+            comedy->removeStock(1);
+            storeInventory.retrieveComedy(title, year, comedy);
+            comedy->addStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -451,12 +735,27 @@ bool Store::executeComedyReturn(const int & id, const string & title, const int 
 
 bool Store::executeClassicReturn(const int & id, const int month, const int year, Person majorActor)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
+        Classics *classic;
+        exists = customer->borrowed.retrieveClassic(month, year, majorActor, classic);
 
+        if (exists == true)
+        {
+            if (classic->getCurrentStock() <= 0)
+                return false;
+            classic->removeStock(1);
+            storeInventory.retrieveClassic(month, year, majorActor, classic);
+            classic->addStock(1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     else
     {
@@ -468,15 +767,16 @@ bool Store::executeClassicReturn(const int & id, const int month, const int year
 
 bool Store::displayHistory(const int id)
 {
-    Customers customer;
+    Customers *customer;
     bool exists = customers.retrieve(id, customer);
 
-    if (exists = true)
+    if (exists == true)
     {
-        customer.displayHistory();
+        customer->displayHistory();
     }
     else
     {
+        cout << "Invalid transaction. No customer with id of " << id << endl;
         //customer not found.
     }
     return false;
@@ -484,5 +784,6 @@ bool Store::displayHistory(const int id)
 
 void Store::displayInventory()
 {
+    cout << storeInventory;
     //cout >> storeInventory;
 }

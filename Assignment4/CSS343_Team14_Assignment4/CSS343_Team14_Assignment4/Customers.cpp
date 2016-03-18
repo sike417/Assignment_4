@@ -3,6 +3,10 @@
 
 Customers::Customers()
 {
+    id = 0;
+    name.firstName = "";
+    name.middleName = "";
+    name.lastName = "";
 }
 
 Customers::Customers(int id)
@@ -53,7 +57,14 @@ Person Customers::getName()
 	return this->name;
 }
 
+void Customers::addTransaction(string transaction)
+{
+    history.addTransaction(transaction);
+}
+
 void Customers::displayHistory()
 {
+     //(1234)
+    cout << "-------------------------Customer History(" << id << ")------------------------ " << endl;
     cout << history;
 }
