@@ -2,7 +2,6 @@
 
 ostream& operator<<(ostream& output, const History &obj)
 {
-	output << "----------------------------Customer History--------------------------- " << endl;
 	for (int i = 0; i < obj.history.size(); i++)
 	{
 		output << obj.history[i] << endl;

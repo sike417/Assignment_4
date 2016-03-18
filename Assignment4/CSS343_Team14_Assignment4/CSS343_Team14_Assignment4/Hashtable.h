@@ -30,7 +30,7 @@ public:
 
     bool contains(const key &val);
     bool contains(const key &val, const object &obj);
-    bool retrieve(const key &val, object &);
+    bool retrieve(const key &val, object *&);
     void empty();
     bool insert(const key &val, const object &obj);
     bool remove(const key &val, const object & obj);
@@ -48,7 +48,6 @@ private:
         {
             info = EMPTY;
             itemKey = 0;
-            element = NULL;
         }
         ~bucket()
         {
@@ -115,14 +114,14 @@ inline bool HashTable<key, object>::contains(const key & val, const object & obj
             return true;
         }
         collisions += 1;
-        elementNum = secondHashFunction(val)
+        elementNum = secondHashFunction(val);
     }
     collisions = 0;
     return false;
 }
 
 template<class key, class object>
-inline bool HashTable<key, object>::retrieve(const key & val, object &customer)
+inline bool HashTable<key, object>::retrieve(const key & val, object *&customer)
 {
     int elementNum = hashFunction(val);
 
@@ -131,7 +130,7 @@ inline bool HashTable<key, object>::retrieve(const key & val, object &customer)
         if (table[elementNum].info == ACTIVE && table[elementNum].itemKey == val)
         {
             collisions = 0;
-            customer = table[elementNum].element;
+            customer = &table[elementNum].element;
             return true;
         }
         collisions += 1;
@@ -148,8 +147,6 @@ inline void HashTable<key, object>::empty()
     for (int i = 0; i < table.size(); i++)
     {
         table[i].info = EMPTY;
-        table[i].element = NULL;
-        table[i].itemKey = 0;
     }
     table.resize(STARTINGSIZE);
 }
@@ -241,7 +238,7 @@ inline int HashTable<key, object>::findVal(const key & val, const object & obj)
             return elementNum;
         }
         collisions += 1;
-        elementNum = secondHashFunction(val)
+        elementNum = secondHashFunction(val);
     }
     collisions = 0;
     return -1;
@@ -278,8 +275,7 @@ inline void HashTable<key, object>::rehash(int num)
     for (int i = 0; i < table.size(); i++)
     {
         table[i].info = EMPTY;
-        table[i].element = NULL;
-        table[i].itemKey = 0;
+        //table[i].itemKey = 0;
     }
 
     currentSize = 0;

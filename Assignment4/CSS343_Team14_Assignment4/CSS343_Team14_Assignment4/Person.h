@@ -21,6 +21,7 @@ using namespace std;
 struct Person
 {
     string firstName;
+    string middleName;
     string lastName;
 };
 #endif

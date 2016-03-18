@@ -31,9 +31,9 @@ public:
     bool addClassic(const Classics &newClassic);
     bool addComedy(const Comedy &newComedy);
     bool addDrama(const Drama &newDrama);
-	  bool retrieveClassic(const int &month, const int &year, const Person &majorActor, Classics &classic);
-	  bool retrieveComedy(const string &title, const int &year, Comedy &comedy);
-	  bool retrieveDrama(const Person &director, const string &title, Drama &drama);
+	  bool retrieveClassic(const int &month, const int &year, const Person &majorActor, Classics *&classic);
+	  bool retrieveComedy(const string &title, const int &year, Comedy *&comedy);
+	  bool retrieveDrama(const Person &director, const string &title, Drama *&drama);
 
 private:
     vector<Classics> classicList;
